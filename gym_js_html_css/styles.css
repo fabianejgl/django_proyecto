@@ -1,0 +1,297 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Architects Daughter", cursive;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  background: rgb(170, 167, 167);
+  font-size: 100%;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  color: black;
+}
+
+.logo img {
+  height: 150px;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 50%;
+  max-width: 205px;
+  flex: 1 auto;
+}
+nav {
+  text-align: center;
+}
+
+nav a {
+  color: black;
+  margin: 5px auto;
+  text-decoration: none;
+  font-size: 150%;
+}
+
+.title {
+  flex: 2 auto;
+}
+
+.title h1 {
+  text-align: center;
+  font-size: 300%;
+  align-items: center;
+}
+.clases {
+  list-style: none;
+}
+#title {
+  font-size: 150%;
+}
+
+.contenedor {
+  width: 90%;
+  margin: 20px auto;
+  display: grid;
+  gap: 20px;
+  justify-content: center;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-rows: repeat(4, auto);
+
+  grid-template-areas:
+    "encabezado encabezado encabezado"
+    "nav nav nav"
+    "contenido contenido aside"
+    "pie pie pie";
+}
+
+.contenedor > div,
+.contenedor .encabezado,
+.contenedor .contenido,
+.contenedor .aside,
+.contenedor .pie {
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.contenedor .encabezado {
+  background: rgb(176, 201, 169);
+  color: #fff;
+  grid-area: encabezado;
+}
+
+.contenedor .menu-nav {
+  grid-area: nav;
+  margin: 10px auto;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+nav a {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.contenedor .contenido {
+  background: #fff;
+  grid-area: contenido;
+}
+
+.contenedor .aside {
+  background: #fff;
+  border: 2px solid green;
+  grid-area: aside;
+}
+
+main img {
+  width: 49%;
+  border: 1px solid black;
+  margin: 1px;
+  max-height: 250px;
+}
+
+.contened_img {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+aside img {
+  width: 100%;
+}
+
+.contenido {
+  width: 100%;
+  border: 2px solid green;
+}
+
+.contenedor .pie {
+  background-color: rgb(176, 201, 169);
+  color: black;
+  text-align: center;
+  padding: 20px;
+  grid-area: pie;
+}
+
+a {
+  text-decoration: none;
+}
+
+.iframe {
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 300px;
+}
+.compañias {
+  display: flex;
+  flex-direction: column;
+}
+
+footer a {
+  color: black;
+}
+
+.asides img {
+  max-height: 280px;
+}
+
+@media screen and (max-width: 768px) {
+  .contenedor {
+    grid-template-areas:
+      "encabezado encabezado encabezado"
+      "nav nav nav"
+      "contenido contenido contenido"
+      "aside aside aside"
+      "pie pie pie";
+  }
+  .menu {
+    flex-direction: column;
+    height: auto;
+  }
+  .compañias {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .asides {
+    margin: 10px;
+
+    box-sizing: border-box;
+    width: 46%;
+  }
+  nav {
+    flex-direction: column;
+  }
+  .asides img {
+    max-height: 240px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .asides {
+    margin: 10px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .contenedor {
+    grid-template-areas:
+      "encabezado encabezado encabezado"
+      "nav nav nav"
+      "contenido contenido contenido"
+      "aside aside aside"
+      "pie pie pie";
+  }
+  .contened_img {
+    flex-direction: column;
+  }
+  main img {
+    width: 100%;
+  }
+}
+button {
+  background: green;
+}
+button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+header a:hover {
+  padding: 8px 14px;
+  font-weight: bold;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in;
+}
+
+.slider {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider ul {
+  display: flex;
+  padding: 0;
+  width: 500%;
+
+  animation: cambio 40s infinite alternate;
+}
+
+.slider li {
+  width: 100%;
+  list-style: none;
+}
+
+.slider img {
+  width: 100%;
+}
+
+@keyframes cambio {
+  0% {
+    margin-left: 0;
+  }
+  20% {
+    margin-left: 0;
+  }
+
+  25% {
+    margin-left: -100%;
+  }
+  45% {
+    margin-left: -100%;
+  }
+
+  50% {
+    margin-left: -200%;
+  }
+  70% {
+    margin-left: -200%;
+  }
+
+  75% {
+    margin-left: -300%;
+  }
+  95% {
+    margin-left: -300%;
+  }
+
+  100% {
+    margin-left: -400%;
+  }
+  120% {
+    margin-left: -400%;
+  }
+}
