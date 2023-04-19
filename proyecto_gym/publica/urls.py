@@ -7,3 +7,4 @@ urlpatterns = [
     path('saludar/<str:nombre>/', views.saludar, name='saludar'),
     path("", views.index, name="index")
 ]
+
