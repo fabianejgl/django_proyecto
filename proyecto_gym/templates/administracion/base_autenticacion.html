@@ -9,21 +9,19 @@
         <meta name="author" content="" />
         <title>{% block titulo %}TITULO PAGINA{% endblock titulo %}</title>
         <link rel="stylesheet" href="{%static 'administracion/css/styles.css' %}" >
-        {% block resto_head %}{% endblock resto_head %}
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
    
-    {% block body_modificable %}
-    <body class="sb-nav-fixed">
-        {% include './fijos/nav.html' %}
-        <div id="layoutSidenav">
-            {% include './fijos/aside.html' %}
-            <div id="layoutSidenav_content">
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
                 {% block contenido_main %}{% endblock contenido_main %}
-                
+            </div>
+            <div id="layoutAuthentication_footer">
                 {% include './fijos/footer.html' %}
             </div>
         </div>
-        {% block javascript %}{% endblock javascript %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{%static 'administracion/js/scripts.js' %}"></script>
     </body>
-    {% endblock body_modificable %}
 </html>
