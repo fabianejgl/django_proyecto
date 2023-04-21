@@ -17,6 +17,7 @@ Clonar el repositorio en una carpeta:
   git clone https://github.com/fabianejgl/django_proyecto.git
 ```
 Luego crear un entorno virtual con python y activarlo:
+
 En Linux:
 ```bash
   source /entornos/entorno_django/bin/activate
