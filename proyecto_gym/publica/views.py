@@ -15,16 +15,16 @@ def saludar(request,nombre):
             <p>Estoy haciendo un ejemplo </p>
         """)
 
-# def index(request):
-#         if(request.method=='GET'):
-#             titulo = 'Titulo cuando accedo por GET'
-#         else:
-#             titulo = 'Titulo cuando accedo por otro método'
+def index(request):
+        if(request.method=='GET'):
+            titulo = 'Titulo cuando accedo por GET'
+        else:
+            titulo = 'Titulo cuando accedo por otro método'
         
-#         return HttpResponse(f"""
-#             <h1></h1>
-#             <p>{titulo}</p>
-#         """)
+        return HttpResponse(f"""
+            <h1></h1>
+            <p>{titulo}</p>
+        """)
 
 def index(request):    
     mensaje=None

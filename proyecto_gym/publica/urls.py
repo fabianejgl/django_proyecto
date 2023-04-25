@@ -11,3 +11,4 @@ urlpatterns = [
     path('api_proyectos/',views.api_proyectos,name="api_proyectos"),
     path('cursos/',views.ver_cursos,name="cursos"),
 ]
+

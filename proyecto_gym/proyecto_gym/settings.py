@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'publica',
+    'administracion',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#***AGGREGADO CLASE 12***
+###El debug true, busca un directorio static en la RAIZ de mi proyecto
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+#esto se genera en PRODUCCIÓN y es la que deberemos
+#crear y django ira a buscar ahí
+#python magane.py collectstatic
+STATIC_ROOT = BASE_DIR / 'statica_root'
+#***-------***
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
