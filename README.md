@@ -8,7 +8,7 @@ Nuestro proyecto grupal consiste en hacer el backend con Django de una página w
 ## Authors
 - [Fabian Gomez Laguna](https://www.github.com/fabianejgl)
 - [Norma]()
-- [Yamila]()
+- [Yamila](https://github.com/yamilaq)
 - [Evana Sabatella](https://github.com/EvanaSabatella1989)
 
 ## Requerimientos
