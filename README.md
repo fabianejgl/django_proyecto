@@ -9,7 +9,7 @@ Nuestro proyecto grupal consiste en hacer el backend con Django de una página w
 - [Fabian Gomez Laguna](https://www.github.com/fabianejgl)
 - [Norma]()
 - [Yamila]()
-- [Evana]()
+- [Evana Sabatella](https://github.com/EvanaSabatella1989)
 
 ## Requerimientos
 Clonar el repositorio en una carpeta:
