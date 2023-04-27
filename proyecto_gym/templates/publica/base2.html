@@ -26,16 +26,16 @@
 
 
 
-    <header class="encabezado">
+    <!-- <header class="encabezado">
 
         <div class="menu">
-            <div class="logo"><img src="img/logo.jpg" alt="logo"></div>
+            <div class="logo"><img src="img/logo.jpg" alt="mind&body"></div>
             <div class="title">
                 <h1>Mind & Body</h1>
             </div>
-        </div>
+        </div> -->
 
-        <!-- <div class="menu-nav">
+    <!-- <div class="menu-nav">
                 <nav>
                     <a href="index.html" class="nav">Home</a>
                     <a href="acercaDe.html" class="nav">Nosotros</a>
@@ -44,7 +44,7 @@
                     <a href="registro.html" class="nav">Registrate</a>
                 </nav>
             </div> -->
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <!-- <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{% url 'inicio' %}" class="nav-link px-2 link-secondary">Inicio</a></li>
             <li><a href="{% url 'cursos' %}" class="nav-link px-2 link-dark">Contacto</a></li>
             <li><a href="{% url 'proyectos' %}" class="nav-link px-2 link-dark">Sucursales</a></li>
@@ -52,7 +52,56 @@
 
         </ul>
 
+    </header> -->
+
+    <header data-bs-theme="dark">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcyKLzv_VMHruY3p674HG1Avu4wGyS5kgqB-f3QnoVzjrPJpq7TWPVCuVTzntKsq4048M&usqp=CAU"
+                        alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+
+                </a>
+
+                <div class="container-fluid navbar-brand">
+
+
+                    <h2>Gold´s Gym</h2>
+
+                </div>
+
+            </div>
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="#">Carousel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button> -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                        <li class="nav-item"><a class="nav-link" href="{% url 'quienes_somos' %} ">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cursos' %}">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'proyectos' %}">Sucursales</a>
+                        </li>
+
+
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
     </header>
+
+    <!-- <main> -->
+
+
+
     <main class="flex-shrink-0">
         {% block contenido %}
         {% endblock contenido %}
