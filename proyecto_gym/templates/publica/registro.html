@@ -1,0 +1,89 @@
+{% extends './base2.html' %}
+
+{% block titulo %}Registro{% endblock titulo %}
+
+{% block contenido %}
+
+<div class="container">
+
+
+    <form action="#" name="formulario" method="GET">
+        <div class="form-group">
+            <h2>Rellene el formulario</h2>
+            <p>(*Obligatorio)</p>
+
+            <label for="usr">* Nombre:</label>
+            <input type="text" name="nombre" class="form-control" id="usr">
+
+            <label for="lsn">* Apellido:</label>
+            <input type="text" name="apellido" class="form-control" id="lsn">
+
+            <label for="cel">* Nro Celular:</label>
+            <input type="text" name="tel" class="form-control" id="cel">
+
+            <label for="mail">* E-Mail:</label>
+            <input type="email" name="mail" class="form-control" id="mail">
+
+            <label for="calle">Calle:</label>
+            <input type="text" name="calle" class="form-control" id="calle">
+
+            <label for="nro">Numero:</label>
+            <input type="text" name="numero" class="form-control" id="nro">
+
+
+            <p>* Seleccione la/s clase/s en la que esta interesado/a:</p>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Yoga"> Yoga</label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Pilates"> Pilates</label>
+            </div>
+
+            <div class="checkbox disabled">
+                <label><input type="checkbox" name="clase" value=" HIIT" disabled> HIIT</label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Spinning"> Spinning</label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Entrenamiento funcional"> Entrenamiento funcional
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Actividades de Baile"> Actividades de Baile</label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value=""> Actividades de combate
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" name="clase" value="Actividades de combate"> Actividades de Agua
+                </label>
+            </div>
+
+            <div>
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            <br>
+            <div class="checkbox">
+                <label for=""><input type="checkbox" name="terminos" value="Terminos y Condiciones"><a href="TPO.pdf"
+                        target="_blank">Acepto Terminos y Condiciones*</a></label>
+            </div>
+            <div class="container">
+                <input type="submit" class="btn btn-info " id="btn" name="btn" value="Enviar">
+            </div>
+
+        </div>
+    </form>
+
+
+</div>
+{% endblock contenido %}
