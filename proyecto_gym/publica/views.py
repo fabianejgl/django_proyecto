@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 
+from publica.form import FormularioGym
 
 # Create your views here.
 
@@ -28,12 +29,13 @@ def index(request):
 
 def index(request):    
     mensaje=None
-    # if(request.method=='POST'):
-    #     contacto_form = ContactoForm(request.POST)
-    #     mensaje='Hemos recibido tus datos'
-    #     # acción para tomar los datos del formulario
-    # else:
-    #     contacto_form = ContactoForm()
+    if(request.method=='POST'):
+        formulario_gym = FormularioGym(request.POST)
+        mensaje='Hemos recibido tus datos'
+        # acción para tomar los datos del formulario
+    else:
+        formulario_gym = FormularioGym()
+        
     listado_cursos = [
         {
             'nombre':'Fullstack Java',
@@ -60,7 +62,7 @@ def index(request):
     context = {                
                 'cursos':listado_cursos,
                 'mensaje':mensaje,
-                # 'contacto_form':contacto_form
+                'formulario_gym':formulario_gym
             }
     return render(request,'publica/index.html',context)
 

@@ -80,19 +80,20 @@
                 {{mensaje}}
             </div>
             {% endif %}
-            <form id="contact-form" name="contact-form" action="{% url 'inicio' %}" method="POST">
+            <form id="formulario-gym" name="formulario-gym" action="{% url 'inicio' %}" method="POST">
                 {% csrf_token %}
-                {% comment %} {{ contacto_form }} {% endcomment %}
+                {% comment %} {{ formulario_gym }} {% endcomment %}
 
-                {% comment %} <table>
-                    {{ contacto_form.as_table }}
-                </table> {% endcomment %}
+                <table>
+                    {{ formulario_gym.as_table }}
+                </table>
 
                 {% comment %} <ul>
                     {{ contacto_form.as_ul }}
                 </ul> {% endcomment %}
-
-                {{ contacto_form.as_p }}
+                
+                {% comment %} 
+                {{ formulario_gym.as_p }} {% endcomment %}
                 <div class="text-center text-md-left mt-3">
                     <button class="btn btn-primary" type="submit">Enviar</button>
                 </div>
