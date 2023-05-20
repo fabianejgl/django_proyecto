@@ -3,7 +3,7 @@
 {% block titulo %}Home{% endblock titulo %}
 
 {% block contenido %}
-<div class="container">
+<div class="container inicio">
     <!-- <p>Los centros deportivos MYND & BODY con sus 30 años de experiencia en el sector de la actividad física,
         ofrecen a sus socios un espacio de entrenamiento bien equipado con un servicio de calidad en el que
         recibirás un trato cercano, familiar y profesional.
@@ -12,7 +12,7 @@
         en donde podrás alcanzar todos aquellos objetivos que te hayas marcado, gracias a un gran equipo de
         profesionales que te ayudaran en todo momento.</p>
     <br> -->
-    <iframe class="iframe" width="100%" height="600" src="https://www.youtube.com/embed/EbNITsyICQE"
+    <iframe class="iframe videoYT" width="100%" height="600" src="https://www.youtube.com/embed/EbNITsyICQE"
         title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
@@ -28,7 +28,7 @@
                 <img class="bd-placeholder-img card-img-top" width="100%" height="250px" src="{{curso.imagen}}"
                     alt="{{curso.nombre}}" width="20%">
                 <div class="card-body">
-                    <h3>{{curso.nombre}}</h3>
+                    <h4>{{curso.nombre}}</h4>
                     <p class="card-text">{{curso.descripcion}}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
@@ -54,64 +54,4 @@
 
 </div>
 </section>
-<section class="mb-4 container">
-
-    <!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold text-center my-4">Contactanos</h2>
-    <!--Section description-->
-    <p class="text-center w-responsive mx-auto mb-5">¿Tiénes alguna pregunta? Por favor, no dudes en contactarnos
-        directamente. Nuestro equipo le responderá dentro de cuestión de horas para ayudarte.</p>
-
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-6 mb-md-0 mb-6">
-
-            {% if mensaje %}
-            <div class="alert alert-success" role="alert">
-                {{mensaje}}
-            </div>
-            {% endif %}
-            <form id="formulario-gym" name="formulario-gym" action="{% url 'inicio' %}" method="POST">
-                {% csrf_token %}
-                {% comment %} {{ formulario_gym }} {% endcomment %}
-
-                <table>
-                    {{ formulario_gym.as_table }}
-                </table>
-
-                {% comment %} <ul>
-                    {{ contacto_form.as_ul }}
-                </ul> {% endcomment %}
-                
-                {% comment %} 
-                {{ formulario_gym.as_p }} {% endcomment %}
-                <div class="text-center text-md-left mt-3">
-                    <button class="btn btn-primary" type="submit">Enviar</button>
-                </div>
-            </form>
-            <div class="status"></div>
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <!-- <div class="col-md-6 text-center">
-            <ul class="list-unstyled mb-0">
-                <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                    <p>Carlos H Perette y Calle 10, 5to piso</p>
-                </li>
-
-                <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                    <p>6076-6000 Int. 5046 y 5041</p>
-                </li>
-
-                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                    <p>io.codoacodo@bue.edu.ar</p>
-                </li>
-            </ul>
-        </div> -->
-        <!--Grid column-->
-    </div>
-</section>
-</div>
 {% endblock contenido %}

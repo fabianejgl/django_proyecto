@@ -84,7 +84,9 @@
 *::after {
   box-sizing: border-box;
 }
-
+main{
+  margin-top: 10rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -337,9 +339,12 @@ th {
 }
 
 label {
+  margin-top: 0.5rem;
   display: inline-block;
 }
-
+#id_aceptoTyC.form-check-input{
+  margin-top: 0.75rem;
+}
 button {
   border-radius: 0;
 }
@@ -471,6 +476,9 @@ output {
 
 iframe {
   border: 0;
+}
+.videoYT{
+  margin-top: 1em;
 }
 
 summary {
@@ -2933,7 +2941,7 @@ textarea.form-control-lg {
   --bs-btn-bg: #ffc107;
   --bs-btn-border-color: #ffc107;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #ffca2c;
+  --bs-btn-hover-bg: #f0c648;
   --bs-btn-hover-border-color: #ffc720;
   --bs-btn-focus-shadow-rgb: 217, 164, 6;
   --bs-btn-active-color: #000;
@@ -3651,6 +3659,9 @@ textarea.form-control-lg {
 }
 .nav-link:hover, .nav-link:focus {
   color: var(--bs-nav-link-hover-color);
+  border: 2px solid ;
+  border-color: var(--bs-nav-link-hover-color);
+  border-radius: 10px;
 }
 .nav-link.disabled {
   color: var(--bs-nav-link-disabled-color);
@@ -3791,6 +3802,9 @@ textarea.form-control-lg {
   text-decoration: none;
   white-space: nowrap;
 }
+.navbar-brand img{
+  margin-left: 3rem;
+}
 .navbar-brand:hover, .navbar-brand:focus {
   color: var(--bs-navbar-brand-hover-color);
 }
@@ -3807,6 +3821,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  gap: 2rem;
 }
 .navbar-nav .show > .nav-link,
 .navbar-nav .nav-link.active {
@@ -3815,7 +3830,38 @@ textarea.form-control-lg {
 .navbar-nav .dropdown-menu {
   position: static;
 }
+.footer-items:hover{
+  border: 0;
+}
+.icono a{
+  color:var(--bs-warning);
+  font-size: 1.5rem;
+}
+.contacto-sucursales-div{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.contacto-sucursales-div i{
+  margin-right:1rem;
+  margin-left: 1rem;
+}
+.contacto-sucursales-div a{
+  text-decoration: none;
+}
+.contacto-icon{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  font-size: 2.5rem;
+}
+.inicio h2{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 
+}
 .navbar-text {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -8004,7 +8050,11 @@ textarea.form-control-lg {
 }
 
 .text-end {
+  margin-right: 3rem;
   text-align: right !important;
+}
+.text-end button{
+  margin-left: 1rem;
 }
 
 .text-center {
@@ -11240,4 +11290,22 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
+}
+.login{
+  background-image:linear-gradient(90deg, white,white,white, rgba(0,0,0,.2),rgba(0,0,0,.5)),
+                    url(../assets/img/mancuernas.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom 0 left 122%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  margin-bottom: 3rem;
+}
+.registro{
+  background-image:linear-gradient(90deg, white,white,white,white, rgba(0,0,0,.1), rgba(0,0,0,.2),rgba(0,0,0,.5)),
+  url(../assets/img/registro-gym2.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom 3rem left 250%;
+
 }
