@@ -4,7 +4,7 @@
 
 {% block contenido %}
 
-<div class="container">
+{% comment %} <div class="container">
 
 
     <form action="#" name="formulario" method="GET">
@@ -85,5 +85,49 @@
     </form>
 
 
-</div>
+</div> {% endcomment %}
+
+
+<section class="mb-4 container">
+
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Registrate</h2>
+    <!--Section description-->
+    <p class="text-center w-responsive mx-auto mb-5">
+        Anotate a nuestras clases registrandote en nuestra página.</p>
+
+    <div class="registro">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-md-0 mb-6">
+
+            {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+            <form id="formulario-gym" name="formulario-gym" action="{% url 'registro' %}" method="POST" novalidate>
+                {% csrf_token %}
+                
+                <div class="row">
+                    {% for campo in formulario_gym%}
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <label for="name" class="form-label">{{campo.label}}</label>
+                            {{campo}}
+                        </div>
+                        <div>{{ campo.errors}} </div>
+                    </div>
+                    {% endfor %}
+        
+                <div class="text-center text-md-left mt-3">
+
+                    <button class="btn btn-warning" type="submit">Enviar</button>
+                </div>
+            </form>
+            <div class="status"></div>
+        </di>   
+    </div>
+</section>
 {% endblock contenido %}
