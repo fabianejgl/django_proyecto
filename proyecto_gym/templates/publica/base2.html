@@ -17,7 +17,7 @@
 
 
     {% load static %}
-    <link rel="stylesheet" href="{% static '/publica/css/style.css'%}?v={% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'administracion/css/styles.css'%}?v={% now 'U' %}">
 
     {% block css %}{% endblock css %}
 </head>
@@ -47,19 +47,19 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
-                        <li class="nav-item"><a class="nav-link" href="{% url 'quienes_somos' %} ">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'sucursales' %}">Sucursales</a>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'quienes_somos' %} ">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
 
 
                     </ul>
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-light me-2">Login</button>
-                        <button type="button" class="btn btn-warning">Registro</button>
+                        <button type="button" class="btn btn-outline-light me-2" onclick="location.href = '/login';">Iniciar sesión</button>
+                        <button type="button" class="btn btn-warning" onclick="location.href = '/registro';">Registro</button>
                     </div>
                 </div>
             </div>
