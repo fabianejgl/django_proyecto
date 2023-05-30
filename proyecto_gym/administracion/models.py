@@ -59,12 +59,28 @@ class Alumno(Persona):
 class Profesor(Persona):
     legajo = models.CharField(max_length=10,verbose_name='Legajo')
 
+class Sucursal(models.Model):
+    nombre = models.CharField(max_length=100,verbose_name='Nombre')
+    direccion = models.CharField(max_length=255,verbose_name='Direccion')
+    portada = models.ImageField(upload_to='imagenes/sucursal/',null=True,verbose_name='Portada') 
+  
+    
+
+    def __str__(self):
+        return self.nombre
+
+    def delete(self,using=None,keep_parents=False):
+        self.portada.storage.delete(self.portada.name) #borrado fisico
+        super().delete()   
+
 class Grupo(models.Model):
     nombre = models.CharField(max_length=100,verbose_name="Nombre")
     dia = models.CharField(max_length=100,verbose_name="Dia",null=True,default=None)
     horario = models.CharField(max_length=100,verbose_name="Horario",null=True,default=None)
     clase = models.ForeignKey(Clase,on_delete=models.CASCADE) #relacion mucho a uno
+    profesor = models.ForeignKey(Profesor,on_delete=models.CASCADE) #relacion mucho a uno
     alumnos = models.ManyToManyField(Alumno, through='Inscripcion')
+    sucursal = models.ForeignKey(Sucursal,on_delete=models.CASCADE) #relacion mucho a uno 
 
 
 class Inscripcion(models.Model):
@@ -81,7 +97,6 @@ class Inscripcion(models.Model):
 
     def __str__(self):
         return self.alumno.nombre    
-
 
 
 
