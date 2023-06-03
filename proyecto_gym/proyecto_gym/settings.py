@@ -84,13 +84,20 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
         # 'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gimnasio',
-        'USER': 'postgresql',
-        'PASSWORD': 'yamila33',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        # 'NAME': 'gimnasio',
+        # 'USER': 'nombreusuario',
+        # 'PASSWORD': 'root',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306',
+    #Poner en .env lo de arriba Eva así cada uno tiene la base de datos en su .env y no lo modificamos mucho            #Borrar este comentario*
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
 
