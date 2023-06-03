@@ -73,10 +73,10 @@ def registro(request):
         formulario_gym = FormularioGym(request.POST)
         # acción para tomar los datos del formulario
         if formulario_gym.is_valid():
-            messages.success(request,'Recibimos tus datos')
+            messages.success(request,'¡Felicidades! Te registraste exitosamente')
         else:
             messages.warning(
-                request, 'Por favor completa el formulario'
+                request, 'Por favor completa el formulario de registro'
             )
     else:
         formulario_gym = FormularioGym()   
