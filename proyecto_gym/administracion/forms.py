@@ -62,7 +62,7 @@ class AlumnoForm(forms.ModelForm):
         )
     dni=forms.IntegerField(
         label='DNI',           
-        widget=forms.IntegerField(attrs={'class':'form-control'})
+        widget=forms.NumberInput(attrs={'class':'form-control'})
         )
     matricula=forms.CharField(
         label='Matricula',           
