@@ -25,4 +25,9 @@ urlpatterns = [
     path('alumnos/nuevo/', views.alumnos_nuevo,name='alumnos_nuevo'),
     path('alumnos/editar/<int:id_alumno>', views.alumnos_editar,name='alumnos_editar'),
     path('alumnos/eliminar/<int:id_alumno>', views.alumnos_eliminar,name='alumnos_eliminar'),
+    #profesor
+    path('profesores/', views.profesores_index,name='profesores_index'),
+    path('profesores/nuevo/', views.profesores_nuevo,name='profesores_nuevo'),
+    path('profesores/editar/<int:id_profesor>', views.profesores_editar,name='profesores_editar'),
+    path('profesores/eliminar/<int:id_profesor>', views.profesores_eliminar,name='profesores_eliminar'),
 ]

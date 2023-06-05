@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Clase, Categoria, Alumno
+from .models import Clase, Categoria, Alumno, Profesor
 
 class CategoriaForm(forms.ModelForm):
     # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
@@ -76,4 +76,35 @@ class AlumnoForm(forms.ModelForm):
     class Meta:
         model=Alumno
         fields=['nombre','apellido','email','dni','matricula']
+
+class ProfesorForm(forms.ModelForm):
+
+    nombre=forms.CharField(
+        label='Nombre',           
+        widget=forms.TextInput(attrs={'class':'form-control'})
+        )
+    apellido=forms.CharField(
+        label='Apellido',           
+        widget=forms.TextInput(attrs={'class':'form-control'})
+        )
+    email=forms.EmailField(
+        label='Email',           
+        widget=forms.EmailInput(attrs={'class':'form-control'})
+        )
+    dni=forms.IntegerField(
+        label='DNI',           
+        widget=forms.NumberInput(attrs={'class':'form-control'})
+        )
+    legajo=forms.CharField(
+        label='Legajo',           
+        widget=forms.TextInput(attrs={'class':'form-control'})
+        )
+    error_messages = {
+        'nombre' :{
+            'required':'No te olvides de mi!'
+            }
+        }
+    class Meta:
+        model=Profesor
+        fields=['nombre','apellido','email','dni','legajo']
                      

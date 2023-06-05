@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm
-from administracion.models import Categoria, Clase, Alumno
+from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm
+from administracion.models import Categoria, Clase, Alumno, Profesor
 from django.contrib import messages
 
 # Create your views here.
@@ -144,3 +144,44 @@ def alumnos_eliminar(request,id_alumno):
         return render(request,'administracion/404_admin.html')
     alumno.soft_delete()
     return redirect('alumnos_index')
+
+"""
+    CRUD Profesores
+"""
+def profesores_index(request):
+    #queryset
+    profesores = Profesor.objects.all()
+    return render(request,'administracion/profesores/index.html',{'profesores':profesores})
+
+def profesores_nuevo(request):
+    if(request.method=='POST'):
+        formulario = ProfesorForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('profesores_index')
+    else:
+        formulario = ProfesorForm()
+    return render(request,'administracion/profesores/nuevo.html',{'form':formulario})
+
+def profesores_editar(request,id_profesor):
+    try:
+        profesor = Profesor.objects.get(pk=id_profesor)
+    except Profesor.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = ProfesorForm(request.POST,instance=profesor)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('profesores_index')
+    else:
+        formulario = ProfesorForm(instance=profesor)
+    return render(request,'administracion/profesores/editar.html',{'form':formulario})
+
+def profesores_eliminar(request,id_profesor):
+    try:
+        profesor = Profesor.objects.get(pk=id_profesor)
+    except Profesor.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+    profesor.delete()
+    return redirect('profesores_index')
