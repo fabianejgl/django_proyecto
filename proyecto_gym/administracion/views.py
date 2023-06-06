@@ -8,12 +8,6 @@ from django.contrib import messages
 def index_admin(request):
     return render(request, 'administracion/index_admin.html')
 
-def tables_admin(request):
-    return render(request, 'administracion/tables_admin.html')
-
-def charts_admin(request):
-    return render(request, 'administracion/charts_admin.html')
-
 def login_admin(request):
     return render(request, 'administracion/login_admin.html')
 

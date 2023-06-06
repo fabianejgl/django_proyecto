@@ -5,11 +5,11 @@ urlpatterns = [
     # ejemplo clase:
     path('', views.index_admin,name='index'),
     # path("administracion/", views.index_admin, name="index"),  Fabi acá le saque la palabra administracion, se la agregue en la url principal. Para no estar poniendo todos los path administracion/....
-    path("administracion/tables/", views.tables_admin, name="tables"),
-    path("administracion/charts/", views.charts_admin, name="charts"),
-    path("administracion/login/", views.login_admin, name="login"),
-    path("administracion/register/", views.register_admin, name="register"),
-    path("administracion/password/", views.password_admin, name="password"),
+    path("login/", views.login_admin, name="login"),
+    path("register/", views.register_admin, name="register"),
+    path("password/", views.password_admin, name="password"),
+
+    #CRUDS#
     #categoria
     path('categorias/', views.categorias_index,name='categorias_index'),
     path('categorias/nuevo/', views.categorias_nuevo,name='categorias_nuevo'),
