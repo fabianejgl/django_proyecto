@@ -26,13 +26,19 @@ def categorias_index(request):
     return render(request,'administracion/categorias/index.html',{'categorias':categorias})
 
 def categorias_nuevo(request):
-    if(request.method=='POST'):
+    if request.method == 'POST':
         formulario = CategoriaForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('categorias_index')
+            categoria_nueva = formulario.cleaned_data['nombre']
+            # Verificar si la categoría ya existe en la base de datos
+            if Categoria.objects.filter(nombre=categoria_nueva).exists():
+                messages.error(request, 'Esta categoría ya pertenece a la base de datos, debe activarla')
+            else:
+                formulario.save()
+                return redirect('categorias_index')
     else:
         formulario = CategoriaForm()
+
     return render(request,'administracion/categorias/nuevo.html',{'form':formulario})
 
 def categorias_editar(request,id_categoria):
@@ -70,11 +76,18 @@ def clases_nuevo(request):
     #forma de resumida de instanciar un formulario basado en model con los
     #datos recibidos por POST si la petición es por POST o bien vacio(None)
     #Si la petición es por GET
-    formulario = ClaseForm(request.POST or None,request.FILES or None)
-    if formulario.is_valid():
-        formulario.save()
-        messages.success(request,'Se ha creado la clase correctamente')          
-        return redirect('clases_index')
+    if request.method == 'POST':
+        formulario = ClaseForm(request.POST or None,request.FILES or None)
+        if formulario.is_valid():
+            curso_nuevo = formulario.cleaned_data['nombre']
+            if Clase.objects.filter(nombre=curso_nuevo,).exists():
+                messages.error(request, 'Esta clase ya existe en la base de datos')
+            else:
+                formulario.save()
+                return redirect('clases_index')
+    else:
+        formulario = ClaseForm(request.POST or None,request.FILES or None)
+    
     return render(request,'administracion/clases/nuevo.html',{'formulario':formulario})
 
 def clases_editar(request,id_clase):

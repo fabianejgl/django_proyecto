@@ -2,8 +2,16 @@
     <div class="form-group">
         <label for="">{{campo.label}}</label>
         {{campo}}
+
+        {% comment %} MUESTRA ERRORES DE DATOS INGRESANDOS EN FRONT debajo de cada campo {% endcomment %}
+        {% if campo.errors %}
+        <ul class="errorlist">
+            {% for error in campo.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
-    <div>{{campo.errors}}</div>
 {% endfor %}
 <div class="row mt-3">
     <div class="col-12">
