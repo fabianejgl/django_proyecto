@@ -1,0 +1,22 @@
+{% extends '../base_admin.html' %}
+
+{% block titulo %}Nuevo profesor{% endblock%}
+
+{% block contenido_main %}
+<h1 class="mt-4 m-lg-3">Profesores</h1>
+<ol class="breadcrumb mb-4 m-lg-3">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Nuevo Profesor</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Creacion de profesores</div>
+    <div class="card-body">
+        <form action="{% url 'profesores_nuevo' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'administracion/profesores/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
