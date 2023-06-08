@@ -77,7 +77,7 @@ def clases_nuevo(request):
     #datos recibidos por POST si la petición es por POST o bien vacio(None)
     #Si la petición es por GET
     if request.method == 'POST':
-        formulario = ClaseForm(request.POST or None,request.FILES or None)
+        formulario = ClaseForm(request.POST or None,request.FILES or None)  #El formulario se completa lo que se recibe por POST y lo que se recibe por FILES.
         if formulario.is_valid():
             curso_nuevo = formulario.cleaned_data['nombre']
             if Clase.objects.filter(nombre=curso_nuevo,).exists():

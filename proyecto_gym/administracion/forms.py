@@ -34,8 +34,8 @@ class ClaseForm(forms.ModelForm):
     )
     """Se utiliza ModelChoiceField para poder realizar un filtrado de lo que
     quiero mostrar en el selector"""
-    categoria = forms.ModelChoiceField(
-        queryset=Categoria.objects.filter(baja=False),
+    categoria = forms.ModelChoiceField(                         #Diferencia con PUBLICA, donde uso  forms.ChoiceField
+        queryset=Categoria.objects.filter(baja=False),          #ACA filtro por las opciones de cotegoría que existen y NO están de baja
         widget=forms.Select(attrs={'class': 'form-control'})
     )
     portada = forms.ImageField(

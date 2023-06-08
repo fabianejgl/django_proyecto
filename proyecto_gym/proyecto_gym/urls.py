@@ -19,6 +19,7 @@ from django.urls.conf import include    #agrego
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('admin/', sitio_admin.urls),
     path('',include('publica.urls')),                       #incluyo publica
     path('administracion/',include('administracion.urls')), #incluyo administración
 ]

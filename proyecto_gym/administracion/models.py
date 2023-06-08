@@ -99,4 +99,14 @@ class Inscripcion(models.Model):
         return self.alumno.nombre    
 
 
+#####AUTENTICACION#####
 
+# class Usuario(AbstractUser):
+#     pass            #no le agrego nada, por ahora. Es una buena práctica hacer esto.
+
+# class Perfil(models.Model):
+#     """MODELO QUE PERMITE DEL USER MODEL DE DJANGO PARA AGREGERLE CAMPOS EXTRAS"""
+#     user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
+#     telefono = models.CharField(max_length=20,verbose_name='Teléfono')
+#     domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
+#     foto = models.ImageField(upload_to='perfiles/',null=True,verbose_name='Foto Perfil')
