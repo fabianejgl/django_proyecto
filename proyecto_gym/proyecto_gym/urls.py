@@ -17,9 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include    #agrego
 
+#admin
+from administracion.admin import sitio_admin
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('admin/', sitio_admin.urls),
+    # path('admin/', admin.site.urls),
+    path('admin/', sitio_admin.urls),
     path('',include('publica.urls')),                       #incluyo publica
     path('administracion/',include('administracion.urls')), #incluyo administración
 ]
