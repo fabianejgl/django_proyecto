@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50,verbose_name='Nombre')
     baja = models.BooleanField(default=0)
@@ -31,7 +31,7 @@ class Clase(models.Model):
 
 
 
-class Persona(models.Model):
+class Persona(AbstractUser):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     apellido = models.CharField(max_length=150,verbose_name='Apellido')
     email = models.EmailField(max_length=150,null=True)

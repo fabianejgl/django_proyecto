@@ -3,7 +3,7 @@
 {% block titulo %}Iniciar Sesión{% endblock titulo %}
 
 {% block contenido %}
-
+{% comment %} 
 <section class="container">
     <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>
         <div class="login">
@@ -32,11 +32,65 @@
             
                     <div class="text-center text-md-left mt-3">
 
-                        <button class="btn btn-warning" type="submit">Enviar</button>
+                        <button class="btn btn-warning" type="submit">Continuar</button>
                     </div>
                 </form>
                 <div class="status"></div>
             </div>   
         </div>
+</section> {% endcomment %}
+
+<section class="mb-4 container">
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>               
+    <div class="login">
+        <div class="col-md-6 mb-md-0 mb-6">
+
+                {% comment %} {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %} 
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endcomment %}
+            <form id="login-gym" name="login-gym" action="{% url 'registro' %}" method="POST" novalidate>
+
+                {% csrf_token %}
+                
+                <div class="md-form mb-0">
+                    <label class="form-label" >Usuario</label>
+                    <input type="text" id="{{ form.username.auto_id }}" name="{{ form.username.name }}" class="form-control form-control-lg"
+                        placeholder="" value="{{ form.username.value | default:'' }}" />
+                </div>
+                <div class="error">{{form.username.errors}}</div>
+    
+                <div class="mb-4">
+                    <div class="md-form mb-0">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" id="{{ form.password.auto_id }}" name="{{ form.password.name }}" class="form-control form-control-lg"
+                            placeholder="" value="{{ form.password.value | default:'' }}" />
+                    </div>
+                </div>
+                <div class="error">
+                    {{form.password.errors}}
+                </div>
+                
+                <div class="mb-4 ">
+                    <div class="text-center text-md-left mt-3">
+                        <button type="submit" class="btn btn-warning btn-lg">Continuar</button>
+                        <p class="small mt-2 pt-1 mb-0">No tienes una cuenta? 
+                            <a href="{% url 'registro' %}" class="link-primary">Registrate</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
 </section>
 {% endblock contenido %}

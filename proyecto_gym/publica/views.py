@@ -1,11 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from datetime import datetime
 from django.contrib import messages
 
-from publica.form import FormularioGym
-from publica.form import LoginGym
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.views.generic import CreateView, TemplateView
+
+from publica.form import FormularioGym, LoginGym
 
 def index(request):
     
@@ -69,43 +75,83 @@ def sucursales(request):
 
 def registro(request):  
     
-    if(request.method=='POST'):
-        formulario_gym = FormularioGym(request.POST)
-        # acción para tomar los datos del formulario
-        if formulario_gym.is_valid():
-            messages.success(request,'¡Felicidades! Te registraste exitosamente')
-        else:
-            messages.warning(
-                request, 'Por favor completa el formulario de registro'
+    # if(request.method=='POST'):
+    #     formulario_gym = FormularioGym(request.POST)
+    #     # acción para tomar los datos del formulario
+    #     if formulario_gym.is_valid():
+    #         messages.success(request,'¡Felicidades! Te registraste exitosamente')
+    #     else:
+    #         messages.warning(
+    #             request, 'Por favor completa el formulario de registro'
+    #         )
+    # else:
+    #     formulario_gym = FormularioGym()   
+    
+    
+    # context = {                
+    #             'formulario_gym':formulario_gym
+    #         }
+    # return render(request,'publica/registro.html', context)
+
+    if request.method == 'POST':
+        form = FormularioGym(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Felicidades! Ya creaste tu cuenta.'
             )
+            return redirect ('login')
     else:
-        formulario_gym = FormularioGym()   
-    
-    
-    context = {                
-                'formulario_gym':formulario_gym
-            }
-    return render(request,'publica/registro.html', context)
+        form = FormularioGym()
+    return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
 
 def login(request):  
     
-    if(request.method=='POST'):
-        login_gym = LoginGym(request.POST)
-        if login_gym.is_valid():
-            messages.success(request,'log')
+    # if(request.method=='POST'):
+    #     login_gym = LoginGym(request.POST)
+    #     if login_gym.is_valid():
+    #         messages.success(request,'log')
+    #     else:
+    #         messages.warning(
+    #             request, 'log2'
+    #         )
+    # else:
+    #     login_gym = LoginGym()   
+    
+    
+    # context = {                
+    #             'login_gym':login_gym
+    #         }
+    # return render(request,'publica/login.html', context)
+  
+    # if user is not None:
+    #     login(request, user)
+    #     nxt = request.GET.get("next", None)
+    #     if nxt is None:
+    #         return redirect('inicio')
+    #     else:
+    #         return redirect(nxt)
+    # else:
+    #     messages.error(request, f'la cuenta/contraseña no coinciden con un usuario activo, por favor vuelva a intentar')  
+    # form =AuthenticationForm()
+    # return render(request, 'publica/login.html',{'form': form, 'title': 'loguearse'})  
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            form = LoginGym(request, user)
+            messages.success(request,f'Bienvenido!')
+            return redirect ('inicio')
         else:
-            messages.warning(
-                request, 'log2'
-            )
-    else:
-        login_gym = LoginGym()   
-    
-    
-    context = {                
-                'login_gym':login_gym
-            }
-    return render(request,'publica/login.html', context)
+            messages.error(request, f'Hay un error en el usuario o la contraseña. Por favor intente otra vez')
+    form = AuthenticationForm()
+    return render(request, 'publica/login.html', {'form': form, 'title':'inicia sesión'})
 
+def logout_user(request):
+    logout(request)
+    messages.success(request, f'Cerraste sesion correctamente')
+    return redirect ('inicio')
 
 
 #**************Proyecto_GYM*****************
