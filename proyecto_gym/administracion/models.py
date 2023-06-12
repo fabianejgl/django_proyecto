@@ -60,13 +60,14 @@ class Alumno(Persona):
 
 class Profesor(Persona):
     legajo = models.CharField(max_length=10,verbose_name='Legajo')
+    
+    def __str__(self):
+        return self.nombre
 
 class Sucursal(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     direccion = models.CharField(max_length=255,verbose_name='Direccion')
     portada = models.ImageField(upload_to='imagenes/sucursal/',null=True,verbose_name='Portada') 
-  
-    
 
     def __str__(self):
         return self.nombre
@@ -76,8 +77,18 @@ class Sucursal(models.Model):
         super().delete()   
 
 class Grupo(models.Model):
+    DIAS = [
+        (0,'¡SELECCIONE EL DÍA!'),
+        (1,'Lunes'),
+        (2,'Martes'),
+        (3,'Miércoles'),
+        (4,'Jueves'),
+        (5,'Viernes'),
+        (6,'Sábado'),
+    ]
+
     nombre = models.CharField(max_length=100,verbose_name="Nombre")
-    dia = models.CharField(max_length=100,verbose_name="Dia",null=True,default=None)
+    dia = models.IntegerField(choices=DIAS,default=0)    #o default = 1?
     horario = models.CharField(max_length=100,verbose_name="Horario",null=True,default=None)
     clase = models.ForeignKey(Clase,on_delete=models.CASCADE) #relacion mucho a uno
     profesor = models.ForeignKey(Profesor,on_delete=models.CASCADE) #relacion mucho a uno
@@ -104,9 +115,7 @@ class Inscripcion(models.Model):
     
     
 #####AUTENTICACION##### Falta
-
 #buena práctica, no lo usamos en este caso,
-
 # class Usuario(AbstractUser):
 #      pass                             
 

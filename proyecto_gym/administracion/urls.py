@@ -20,14 +20,17 @@ urlpatterns = [
     path('clases/nuevo/', views.clases_nuevo,name='clases_nuevo'),
     path('clases/editar/<int:id_clase>', views.clases_editar,name='clases_editar'),
     path('clases/eliminar/<int:id_clase>', views.clases_eliminar,name='clases_eliminar'),
-    #alumno
-    path('alumnos/', views.alumnos_index,name='alumnos_index'),
-    path('alumnos/nuevo/', views.alumnos_nuevo,name='alumnos_nuevo'),
-    path('alumnos/editar/<int:id_alumno>', views.alumnos_editar,name='alumnos_editar'),
-    path('alumnos/eliminar/<int:id_alumno>', views.alumnos_eliminar,name='alumnos_eliminar'),
     #profesor
     path('profesores/', views.profesores_index,name='profesores_index'),
     path('profesores/nuevo/', views.profesores_nuevo,name='profesores_nuevo'),
     path('profesores/editar/<int:id_profesor>', views.profesores_editar,name='profesores_editar'),
     path('profesores/eliminar/<int:id_profesor>', views.profesores_eliminar,name='profesores_eliminar'),
+    #alumno
+    path('alumnos/', views.alumnos_index,name='alumnos_index'),
+    path('alumnos/nuevo/', views.alumnos_nuevo,name='alumnos_nuevo'),
+    path('alumnos/editar/<int:id_alumno>', views.alumnos_editar,name='alumnos_editar'),
+    path('alumnos/eliminar/<int:id_alumno>', views.alumnos_eliminar,name='alumnos_eliminar'),
+    #grupo
+    path('grupos/', views.grupos_index,name='grupos_index'),
+    path('grupos/nuevo/', views.grupos_nuevo, name='grupos_nuevo'),
 ]

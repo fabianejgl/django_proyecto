@@ -1,14 +1,13 @@
 {% extends '../base_admin.html' %}
 {% load static %}
 
-{% block titulo %}Categorias de clases{% endblock %}
-
+{% block titulo %}Clases{% endblock%}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Categorias clases</h1>
+<h1 class="mt-4 m-lg-3">Clases</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
     <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Categorias</li>
+    <li class="breadcrumb-item active">Clases</li>
 </ol>
 
 <div class="card">
@@ -29,6 +28,15 @@
                               class="form-control">
                     </div>
                 </div>
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Grupo</label>
+                        
+                        <select name="categoria" id="categoria" class="form-control">
+                            <option value="">Seleccione</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-3 ">
                     <button class="btn btn-primary mt-4">Buscar</button>
                 </div>
@@ -39,8 +47,7 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'categorias_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
-            {% comment %} ACÁ SE MUESTRAN MENSAJES DE ERROR DE BACK {% endcomment %}
+        <a name="" id="" class="btn btn-success" href="{% url 'grupos_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <div class='row mt-2'>
             <div class='col-12'>
                 {% for message in messages %}
@@ -57,26 +64,33 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Día y horario</th>
+                    <th>Profespr</th>
+                    <th>Profesor</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for categoria in categorias %}
+                {% for grupo in grupos %}
                     <tr>
-                        <td>{{categoria.id}}</td>
-                        <td>{{categoria.nombre}}</td>
+                        <td>{{grupo.id}}</td>
+                        <td>{{grupo.nombre}}</td>
+                        <td>{{grupo.clase.categoria.nombre}}</td>
+                        <td>{{grupo.dia}} a las {{grupo.horario}}</td>
+                        <td>{{grupo.profesor}}</td>
                         <td>
-                            <a href="{% url 'categorias_editar' categoria.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'categorias_eliminar' categoria.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'grupos_editar' grupo.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'grupos_eliminar' grupo.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
-
             </tbody>
         </table>
-        {% comment %} <div class="row">
+        <div class="row">
             <div class="col-12">
-                <nav aria-label="Page navigation example">
+                
+                {% comment %} <nav aria-label="Page navigation example">
                     <ul class="pagination">
                       <li class="page-item"><a class="page-link" href="#"><<</a></li>
                       <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -84,11 +98,13 @@
                       <li class="page-item"><a class="page-link" href="#">3</a></li>
                       <li class="page-item"><a class="page-link" href="#">>></a></li>
                     </ul>
-                  </nav>
+                  </nav> {% endcomment %}
             </div>
-        </div> {% endcomment %}
+        </div>
     </div>
-    
+    <!-- <div class="card-footer text-muted">
+        Footer
+    </div> -->
 </div>
 
 {% endblock %}

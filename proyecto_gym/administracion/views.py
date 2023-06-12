@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm
-from administracion.models import Categoria, Clase, Alumno, Profesor
+from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm, GrupoForm
+from administracion.models import Categoria, Clase, Alumno, Profesor, Grupo
 from django.contrib import messages
 
 # Create your views here.
@@ -192,3 +192,47 @@ def profesores_eliminar(request,id_profesor):
         return render(request,'administracion/404_admin.html')
     profesor.delete()
     return redirect('profesores_index')
+
+"""
+    CRUD Grupos
+"""
+def grupos_index(request):
+    #queryset
+    grupos = Grupo.objects.all()
+    return render(request,'administracion/grupos/index.html',{'grupos':grupos})
+
+def grupos_nuevo(request):
+    if(request.method=='POST'):
+        formulario = GrupoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('grupos_index')
+    else:
+        formulario = GrupoForm()
+    return render(request,'administracion/grupos/nuevo.html',{'form':formulario})
+
+def grupos_editar(request, id_grupo):
+    try:
+        grupo = Grupo.objects.get(pk=id_grupo)
+    except Profesor.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = GrupoForm(request.POST,instance=grupo)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('profesores_index')
+    else:
+        formulario = GrupoForm(instance=grupo)
+    return render(request,'administracion/grupos/editar.html',{'form':formulario})
+
+def grupos_eliminar(request, id_grupo):
+    try:
+        grupo = Grupo.objects.get(pk=id_grupo)
+    except Grupo.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+    grupo.delete()
+    return redirect('grupos_index')
+
+"""CRUD SUCURSALES"""
+"""CRUD INSCRIPCIONES"""

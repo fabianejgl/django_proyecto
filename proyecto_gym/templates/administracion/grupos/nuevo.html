@@ -1,0 +1,22 @@
+{% extends '../base_admin.html' %}
+
+{% block titulo %}Nuevo grupo{% endblock%}
+
+{% block contenido_main %}
+<h1 class="mt-4 m-lg-3">Grupos</h1>
+<ol class="breadcrumb mb-4 m-lg-3">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Grupo</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Creacion de grupos</div>
+    <div class="card-body">
+        <form action="{% url 'grupos_nuevo' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'administracion/grupos/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
