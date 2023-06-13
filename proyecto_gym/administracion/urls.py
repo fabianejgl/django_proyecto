@@ -13,7 +13,7 @@ urlpatterns = [
     #categoria
     path('categorias/', views.categorias_index,name='categorias_index'),
     path('categorias/nuevo/', views.categorias_nuevo,name='categorias_nuevo'),
-    path('categorias/editar/<int:id_categoria>', views.categorias_editar,name='categorias_editar'),
+    path('categorias/editar/<int:portadaid_categoria>', views.categorias_editar,name='categorias_editar'),
     path('categorias/eliminar/<int:id_categoria>', views.categorias_eliminar,name='categorias_eliminar'),
     #clase
     path('clases/', views.clases_index,name='clases_index'),
@@ -33,4 +33,12 @@ urlpatterns = [
     #grupo
     path('grupos/', views.grupos_index,name='grupos_index'),
     path('grupos/nuevo/', views.grupos_nuevo, name='grupos_nuevo'),
+    path('grupos/editar/<int:id_grupo>', views.grupos_editar,name='grupos_editar'),
+    path('grupos/eliminar/<int:id_grupo>', views.grupos_eliminar,name='grupos_eliminar'),
+    #sucursales
+    path('sucursales/', views.sucursales_index,name='sucursales_index'),
+    path('sucursales/nuevo/', views.sucursales_nuevo, name='sucursales_nuevo'),
+    path('sucursales/editar/<int:id_sucursal>', views.sucursales_editar,name='sucursales_editar'),
+    path('sucursales/eliminar/<int:id_sucursal>', views.sucursales_eliminar,name='sucursales_eliminar'),
+    #Inscripciones
 ]

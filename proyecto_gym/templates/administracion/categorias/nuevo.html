@@ -1,18 +1,18 @@
 {% extends '../base_admin.html' %}
 {% load static %}
 
-{% block titulo %}Nueva categoria{% endblock%}
+{% block titulo %}Nueva categoría{% endblock%}
 
 {% block contenido_main %}
 <h1 class="mt-4 m-lg-3">Categorias clases</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
     <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nueva Categoriaa</li>
+    <li class="breadcrumb-item active">Nueva Categoria</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Creacion de categoría</div>
+    <div class="card-header">Creación de categoría</div>
     <div class="card-body">
         <form action="{% url 'categorias_nuevo' %}" method="post" novalidate>
             {% csrf_token %}

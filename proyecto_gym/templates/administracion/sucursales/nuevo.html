@@ -1,18 +1,18 @@
 {% extends '../base_admin.html' %}
 {% load static %}
 
-{% block titulo %}Nueva clase{% endblock%}
+{% block titulo %}Nuevo sucursal{% endblock%}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Clases Gold´s Gym</h1>
+<h1 class="mt-4 m-lg-3">Sucursales Gold´s Gym</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
-    <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nueva clase</li>
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Administración</a></li>
+    <li class="breadcrumb-item active">Nueva sucursal</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Creación de clase</div>
+    <div class="card-header">Creación de sucursal</div>
     <div class="card-body">
         {% comment %} -------ACÁ SE IMPRIMEN LOS MENSAJES DE ALERTA------ {% endcomment %}
         {% for message in messages %}
@@ -20,11 +20,11 @@
             {{ message }}
         </div>
         {% endfor %}
-
         
-        <form action="{% url 'clases_nuevo' %}" method="post" enctype="multipart/form-data">
+        {% comment %} ACA TIRABA EL ERROR {% endcomment %}
+        <form action="{% url 'sucursales_nuevo' %}" method="post" enctype="multipart/form-data"> 
             {% csrf_token %}
-            {% include 'administracion/clases/form.html' %}
+            {% include 'administracion/sucursales/form.html' %}
         </form>
     </div>
 </div>

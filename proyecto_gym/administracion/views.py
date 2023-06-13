@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm, GrupoForm
-from administracion.models import Categoria, Clase, Alumno, Profesor, Grupo
+
+from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm, GrupoForm, SucursalForm
+from administracion.models import Categoria, Clase, Alumno, Profesor, Grupo, Sucursal, Inscripcion
 from django.contrib import messages
 
 # Create your views here.
@@ -221,7 +222,7 @@ def grupos_editar(request, id_grupo):
         formulario = GrupoForm(request.POST,instance=grupo)
         if formulario.is_valid():
             formulario.save()
-            return redirect('profesores_index')
+            return redirect('grupos_index')
     else:
         formulario = GrupoForm(instance=grupo)
     return render(request,'administracion/grupos/editar.html',{'form':formulario})
@@ -234,5 +235,50 @@ def grupos_eliminar(request, id_grupo):
     grupo.delete()
     return redirect('grupos_index')
 
-"""CRUD SUCURSALES"""
 """CRUD INSCRIPCIONES"""
+
+
+
+"""CRUD SUCURSALES"""
+
+def sucursales_index(request):
+    sucursales = Sucursal.objects.all()
+    return render(request,'administracion/sucursales/index.html',{'sucursales':sucursales})
+
+def sucursales_nuevo(request):
+    if request.method == 'POST':
+        formulario = SucursalForm(request.POST or None,request.FILES or None)  #El formulario se completa lo que se recibe por POST y lo que se recibe por FILES.
+        if formulario.is_valid():
+            sucursal_nueva = formulario.cleaned_data['nombre']
+            if Sucursal.objects.filter(nombre=sucursal_nueva,).exists():
+                messages.error(request, 'Este nombre de sucursal ya existe en la base de datos')
+            else:
+                formulario.save()
+                return redirect('sucursales_index')
+    else:
+        formulario = SucursalForm(request.POST or None,request.FILES or None)
+    
+    return render(request,'administracion/sucursales/nuevo.html',{'form':formulario})
+
+def sucursales_editar(request, id_sucursal):
+    try:
+        sucursal = Sucursal.objects.get(pk=id_sucursal)
+    except Sucursal.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = SucursalForm(request.POST,instance=sucursal)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('sucursales_index')
+    else:
+        formulario = SucursalForm(instance=sucursal)
+    return render(request,'administracion/sucursales/editar.html',{'form':formulario})
+
+def sucursales_eliminar(request, id_sucursal):
+    try:
+        sucursal = Sucursal.objects.get(pk=id_sucursal)
+    except Sucursal.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+    sucursal.delete()
+    return redirect('sucursales_index')

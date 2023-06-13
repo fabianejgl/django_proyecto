@@ -147,4 +147,20 @@ class GrupoForm(forms.ModelForm):
 #INSCRIPCION FORM
 
 
-#SUCURSAL FORM
+#sucursal form
+class SucursalForm(forms.ModelForm):
+
+    nombre=forms.CharField(
+        label='Nombre',           
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese un nombre'})
+        )
+    direccion=forms.CharField(
+        label='Dirección',
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese la dirección'})
+        )
+    portada = forms.ImageField(
+        widget=forms.FileInput(attrs={'class':'form-control'})
+    )
+    class Meta:
+        model=Sucursal
+        fields=['nombre','direccion','portada']
