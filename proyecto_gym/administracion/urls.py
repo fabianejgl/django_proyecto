@@ -3,7 +3,8 @@ from . import views  #me traigo todo lo de views.py
 
 urlpatterns = [
     # ejemplo clase:
-    path('', views.index_admin,name='index'),
+    # path('', views.index_admin,name='index'),
+    path('categorias/', views.categorias_index,name='categorias_index'),
     # path("administracion/", views.index_admin, name="index"),  Fabi acá le saque la palabra administracion, se la agregue en la url principal. Para no estar poniendo todos los path administracion/....
     path("login/", views.login_admin, name="login"),
     path("register/", views.register_admin, name="register"),
