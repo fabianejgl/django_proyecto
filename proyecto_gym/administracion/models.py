@@ -31,7 +31,7 @@ class Clase(models.Model):
 
 
 
-class Persona(AbstractUser):
+class Persona(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     apellido = models.CharField(max_length=150,verbose_name='Apellido')
     email = models.EmailField(max_length=150,null=True)
@@ -63,7 +63,7 @@ class Sucursal(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     direccion = models.CharField(max_length=255,verbose_name='Direccion')
     portada = models.ImageField(upload_to='imagenes/sucursal/',null=True,verbose_name='Portada') 
-  
+
     
 
     def __str__(self):
@@ -98,5 +98,7 @@ class Inscripcion(models.Model):
     def __str__(self):
         return self.alumno.nombre    
 
+class Usuario(AbstractUser):
+    pass    
 
 

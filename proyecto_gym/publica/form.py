@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from administracion.models import Persona
+from administracion.models import Usuario
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
@@ -122,12 +122,11 @@ class FormularioGym(UserCreationForm):
                                 ),
 
     class Meta:
-        model = Persona
-        fields = ['nombre', 'apellido', 'dni', 'email','username','password1', 'password2',]
+        model = Usuario
+        fields = ['first_name', 'last_name', 'email','username','password1', 'password2',]
         labels = {
-            'nombre': 'Nombre',
-            'apellido':'Apellido',
-            'dni': 'DNI',
+            'first_name': 'Nombre',
+            'last_name':'Apellido',
             'email': 'Email',
             'username': 'Nombre de Usuario',
             'password1': 'Contraseña',
@@ -135,11 +134,11 @@ class FormularioGym(UserCreationForm):
         }
         #! no me toma los widgets asi que los puse en el html
         widgets = {
-                'nombre':forms.TextInput(
+                'first_name':forms.TextInput(
                         attrs={'class':'form-control',
                             'placeholder':'Solo letras'
                         }),
-                'apellido':forms.TextInput(
+                'last_name':forms.TextInput(
                         attrs={'class':'form-control',
                             'placeholder':'Solo letras'
                         }),
@@ -149,10 +148,10 @@ class FormularioGym(UserCreationForm):
                         }),
             }
         error_messages = {
-                'nombre':{
+                'first_name':{
                         'required': 'Por favor completa este campo'
                 },
-                'apellido':{
+                'last_name':{
                         'required': 'Por favor completa este campo'
                 },
                 'telefono':{
@@ -163,10 +162,10 @@ class FormularioGym(UserCreationForm):
                 },
             }
         validators = {
-                'nombre':{
+                'first_name':{
                     solo_caracteres
                 },
-                'apellido':{
+                'last_name':{
                     solo_caracteres
                 },
                 

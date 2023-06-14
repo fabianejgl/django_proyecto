@@ -100,7 +100,7 @@ def registro(request):
             messages.success(
                 request, f'Felicidades! Ya creaste tu cuenta.'
             )
-            return redirect ('login')
+            # return redirect ('login')
     else:
         form = FormularioGym()
     return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
@@ -135,18 +135,25 @@ def login(request):
     #     messages.error(request, f'la cuenta/contraseña no coinciden con un usuario activo, por favor vuelva a intentar')  
     # form =AuthenticationForm()
     # return render(request, 'publica/login.html',{'form': form, 'title': 'loguearse'})  
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+    login_form = LoginGym (request.POST or None)
+    # if request.method == 'POST':
+    if login_form.is_valid():
+        username= login_form.cleaned_data.get('username')
+        password= login_form.cleaned_data.get('password')
+    #     username = request.POST['username']
+    #     password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            form = LoginGym(request, user)
-            messages.success(request,f'Bienvenido!')
+            login(request,user)
+            # form = LoginGym(request, user)
+            messages.success(request,f'Hola!')
             return redirect ('inicio')
         else:
             messages.error(request, f'Hay un error en el usuario o la contraseña. Por favor intente otra vez')
-    form = AuthenticationForm()
-    return render(request, 'publica/login.html', {'form': form, 'title':'inicia sesión'})
+            return redirect ('login')
+    # form = AuthenticationForm()
+    return render(request, 'publica/login.html',)
+ # {'form': form, 'title':'inicia sesión'})
 
 def logout_user(request):
     logout(request)
