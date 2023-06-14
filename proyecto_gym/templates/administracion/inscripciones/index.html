@@ -1,13 +1,13 @@
 {% extends '../base_admin.html' %}
 {% load static %}
 
-{% block titulo %}Clases Gold's Gym{% endblock%}
+{% block titulo %}Inscripciones Gold's Gym{% endblock%}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Clases</h1>
+<h1 class="mt-4 m-lg-3">Inscripciones</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
     <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Clases</li>
+    <li class="breadcrumb-item active">Inscripciones</li>
 </ol>
 
 <div class="card">
@@ -47,7 +47,7 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'clases_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'inscripciones_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <div class='row mt-2'>
             <div class='col-12'>
                 {% for message in messages %}
@@ -62,24 +62,24 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Portada</th>
+                    <th>Nombre Alumno</th>
+                    <th>Grupo</th>
+                    {% comment %} <th>Categoría de Grupo</th> {% endcomment %}
+                    <th>Profesor</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for clase in clases %}
+                {% for inscripcion in inscripciones %}
                     <tr>
-                        <td>{{clase.id}}</td>
-                        <td>{{clase.nombre}}</td>
-                        <td>{{clase.categoria.nombre}}</td>
+                        <td>{{inscripcion.id}}</td>
+                        <td>{{inscripcion.alumno}}</td>
+                        <td>{{inscripcion.grupo}} ({{inscripcion.grupo.categoria}})</td>   {% comment %}  VEEEEEEEEEEEEEEEEEEEEEEEEEER {% endcomment %}
+                        {% comment %} <td>{{inscripcion.grupo.categoria}}</td> {% endcomment %}
+                        <td>{{inscripcion.grupo.profesor}}</td>
                         <td>
-                            <img src="{{clase.portada.url}}" alt="{{clase.nombre}}" width="20%">
-                        </td>
-                        <td>
-                            <a href="{% url 'clases_editar' clase.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'clases_eliminar' clase.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'inscripcion_editar' inscripcion.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'inscripcion_eliminar' inscripcion.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

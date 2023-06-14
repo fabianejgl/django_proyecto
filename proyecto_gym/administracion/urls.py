@@ -35,10 +35,14 @@ urlpatterns = [
     path('grupos/nuevo/', views.grupos_nuevo, name='grupos_nuevo'),
     path('grupos/editar/<int:id_grupo>', views.grupos_editar,name='grupos_editar'),
     path('grupos/eliminar/<int:id_grupo>', views.grupos_eliminar,name='grupos_eliminar'),
+    #Inscripciones
+    path('inscripciones/', views.inscripciones_index,name='inscripciones_index'),
+    path('inscripciones/nuevo/', views.inscripciones_nuevo, name='inscripciones_nuevo'),
+    path('inscripciones/editar/<int:id_inscripcion>', views.inscripciones_editar,name='inscripciones_editar'),
+    path('inscripciones/eliminar/<int:id_inscripcion>', views.inscripciones_eliminar,name='inscripciones_eliminar'),
     #sucursales
     path('sucursales/', views.sucursales_index,name='sucursales_index'),
     path('sucursales/nuevo/', views.sucursales_nuevo, name='sucursales_nuevo'),
     path('sucursales/editar/<int:id_sucursal>', views.sucursales_editar,name='sucursales_editar'),
     path('sucursales/eliminar/<int:id_sucursal>', views.sucursales_eliminar,name='sucursales_eliminar'),
-    #Inscripciones
 ]

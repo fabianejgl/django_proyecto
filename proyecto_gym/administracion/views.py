@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm, GrupoForm, SucursalForm
+from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorForm, GrupoForm, SucursalForm, InscripcionForm
 from administracion.models import Categoria, Clase, Alumno, Profesor, Grupo, Sucursal, Inscripcion
 from django.contrib import messages
 
@@ -236,8 +236,42 @@ def grupos_eliminar(request, id_grupo):
     return redirect('grupos_index')
 
 """CRUD INSCRIPCIONES"""
+def inscripciones_index(request):
+    inscripciones = Inscripcion.objects.all()
+    return render(request,'administracion/inscripciones/index.html',{'inscripciones':inscripciones})
 
+def inscripciones_nuevo(request):
+    if(request.method=='POST'):
+        formulario = InscripcionForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('inscripciones_index')
+    else:
+        formulario = InscripcionForm()
+    return render(request,'administracion/inscripciones/nuevo.html',{'form':formulario})
 
+def inscripciones_editar(request, id_inscripcion):
+    try:
+        inscripcion = Inscripcion.objects.get(pk=id_inscripcion)
+    except Inscripcion.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = InscripcionForm(request.POST,instance=inscripcion)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('inscripciones_index')
+    else:
+        formulario = InscripcionForm(instance=inscripcion)
+    return render(request,'administracion/inscripciones/editar.html',{'form':formulario})
+
+def inscripciones_eliminar(request, id_inscripcion):
+    try:
+        inscripcion = Inscripcion.objects.get(pk=id_inscripcion)
+    except Inscripcion.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+    inscripcion.delete()
+    return redirect('inscripciones_index')
 
 """CRUD SUCURSALES"""
 

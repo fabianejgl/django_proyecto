@@ -142,10 +142,34 @@ class GrupoForm(forms.ModelForm):
         model=Grupo
         fields=['nombre','clase','dia','horario','profesor','sucursal']
 
-
-
 #INSCRIPCION FORM
+class InscripcionForm(forms.ModelForm):
+    
+    # fecha_creacion = forms.DateField(
+    #     label='fecha_creacion',
+    #     widget=forms.DateInput(attrs={'class':'form-control', 'type':'date'})
+    #     )
 
+    alumno = forms.ModelChoiceField(
+        queryset=Alumno.objects,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    Grupo = forms.ModelChoiceField(
+        queryset=Grupo.objects,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    estado = forms.ChoiceField(
+        label='estado',
+        choices=Inscripcion.ESTADOS,
+        initial=1,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model=Inscripcion
+        fields=['alumno','grupo','estado']
 
 #sucursal form
 class SucursalForm(forms.ModelForm):
