@@ -4,9 +4,9 @@
 {% block titulo %}Categorias de clases{% endblock %}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Categorias clases</h1>
+<h1 class="mt-4 m-lg-3">Categorias de clases</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
-    <li class="breadcrumb-item"><a href="{% url 'categorias_index' %}">Administracion</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
     <li class="breadcrumb-item active">Categorias</li>
 </ol>
 
@@ -40,17 +40,6 @@
     <div class="card-body">
         <a name="" id="" class="btn btn-success" href="{% url 'categorias_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
             {% comment %} ACÁ SE MUESTRAN MENSAJES DE ERROR DE BACK {% endcomment %}
-        <div class='row mt-2'>
-            <div class='col-12'>
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{message}}
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        <!-- bs5-table-defaul -->
-
         <table class="table">
             <thead>
                 <tr>

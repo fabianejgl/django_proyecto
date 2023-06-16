@@ -1,0 +1,58 @@
+{% extends './base_admin.html' %}
+{% load static %}
+
+{% block titulo %}Categorias de clases{% endblock %}
+
+{% block contenido_main %}
+    <style>
+        .categorias-lista {
+            list-style-type: none;
+            padding: 0;
+            border-radius: 5px;
+        }
+
+        .categorias-lista li {
+            margin-bottom: 10px;
+        }
+
+        .categorias-lista a {
+            display: block;
+            padding: 10px;
+            background-color: #f2f2f2;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .categorias-lista a:hover {
+            background-color: #ddd;
+        }
+    </style>
+
+
+    <h1 class="mt-4 m-lg-3">Índice de visualización de Datos</h1>
+    <ol class="breadcrumb mb-4 m-lg-3">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
+        <li class="breadcrumb-item active">Índice</li>
+    </ol>
+
+    <ul class="categorias-lista">
+        <li><a href="{% url 'categorias_index' %}">Categorías</a></li>
+        <li><a href="{% url 'clases_index' %}">Clases</a></li>
+        <li><a href="{% url 'alumnos_index' %}">Alumnos</a></li>
+        <li><a href="{% url 'profesores_index' %}">Profesores</a></li>
+        <li><a href="{% url 'grupos_index' %}">Grupos</a></li>
+        <li><a href="{% url 'inscripciones_index' %}">Inscripciones</a></li>
+        <li><a href="{% url 'sucursales_index' %}">Sucursales</a></li>
+    </ul>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{%static 'administracion/js/scripts.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="{%static 'administracion/assets/demo/chart-area-demo.js' %}"></script>
+    <script src="{%static 'administracion/assets/demo/chart-bar-demo.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="{%static 'administracion/js/datatables-simple-demo.js' %}"></script>
+{% endblock %}
