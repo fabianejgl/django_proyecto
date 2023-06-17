@@ -1,0 +1,52 @@
+{% extends '../publica/base2.html' %}
+
+{% block titulo %}Iniciar Sesión{% endblock titulo %}
+
+{% block contenido %}
+
+<section class="mb-4 container">
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>               
+  <div class="login">
+      <div class="col-md-6 mb-md-0 mb-6">
+
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %} 
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+          <form method="POST" id="login-gym">
+              {% csrf_token %}
+              
+                  <div class="md-form mb-0">
+                    <label for="username" class="form-label" >Usuario</label>
+                    <input type="text" class="form-control form-control-lg" name="username" placeholder="Escribe tu nombre de usuario">
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="form-group">
+                      <label for="password">Contraseña</label>
+                      <input type="password" class="form-control form-control-lg" name="password" placeholder="Escribe tu contraseña">
+                    </div>
+                  </div>
+
+                  <div class="mb-4 ">
+                    <div class="text-center text-md-left mt-3">
+                      <button type="submit" class="btn btn-warning">Continuar</button>
+                      <p class="small mt-2 pt-1 mb-0">No tienes una cuenta? 
+                        <a href="{% url 'registro' %}" class="link-primary">Registrate</a>
+                      </p>
+                    </div>
+                  </div>
+
+              </form>
+</section>
+
+{% endblock contenido %}

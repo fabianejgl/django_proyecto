@@ -4,16 +4,13 @@ from django.template import loader
 from datetime import datetime
 from django.contrib import messages
 
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login, logout 
 
-from django.views.generic import CreateView, TemplateView
+from publica.form import FormularioGym
 
-from publica.form import FormularioGym, LoginGym
 
 def index(request):
+    
     
     listado_cursos = [
         {
@@ -75,24 +72,6 @@ def sucursales(request):
 
 def registro(request):  
     
-    # if(request.method=='POST'):
-    #     formulario_gym = FormularioGym(request.POST)
-    #     # acción para tomar los datos del formulario
-    #     if formulario_gym.is_valid():
-    #         messages.success(request,'¡Felicidades! Te registraste exitosamente')
-    #     else:
-    #         messages.warning(
-    #             request, 'Por favor completa el formulario de registro'
-    #         )
-    # else:
-    #     formulario_gym = FormularioGym()   
-    
-    
-    # context = {                
-    #             'formulario_gym':formulario_gym
-    #         }
-    # return render(request,'publica/registro.html', context)
-
     if request.method == 'POST':
         form = FormularioGym(request.POST)
         if form.is_valid():
@@ -105,60 +84,26 @@ def registro(request):
         form = FormularioGym()
     return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
 
-def login(request):  
-    
-    # if(request.method=='POST'):
-    #     login_gym = LoginGym(request.POST)
-    #     if login_gym.is_valid():
-    #         messages.success(request,'log')
-    #     else:
-    #         messages.warning(
-    #             request, 'log2'
-    #         )
-    # else:
-    #     login_gym = LoginGym()   
-    
-    
-    # context = {                
-    #             'login_gym':login_gym
-    #         }
-    # return render(request,'publica/login.html', context)
-  
-    # if user is not None:
-    #     login(request, user)
-    #     nxt = request.GET.get("next", None)
-    #     if nxt is None:
-    #         return redirect('inicio')
-    #     else:
-    #         return redirect(nxt)
-    # else:
-    #     messages.error(request, f'la cuenta/contraseña no coinciden con un usuario activo, por favor vuelva a intentar')  
-    # form =AuthenticationForm()
-    # return render(request, 'publica/login.html',{'form': form, 'title': 'loguearse'})  
-    login_form = LoginGym (request.POST or None)
-    # if request.method == 'POST':
-    if login_form.is_valid():
-        username= login_form.cleaned_data.get('username')
-        password= login_form.cleaned_data.get('password')
-    #     username = request.POST['username']
-    #     password = request.POST['password']
+def login_user(request):  
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            # form = LoginGym(request, user)
-            messages.success(request,f'Hola!')
             return redirect ('inicio')
         else:
-            messages.error(request, f'Hay un error en el usuario o la contraseña. Por favor intente otra vez')
-            return redirect ('login')
-    # form = AuthenticationForm()
-    return render(request, 'publica/login.html',)
- # {'form': form, 'title':'inicia sesión'})
+            messages.success(request ("Hubo un error!"))
+            return redirect('login')
+    else:
+        return render(request, 'publica/inicio.html',{})
 
 def logout_user(request):
     logout(request)
-    messages.success(request, f'Cerraste sesion correctamente')
     return redirect ('inicio')
 
+def perfil(request):
+    return render(request, 'publica/perfil.html')
+    
 
 #**************Proyecto_GYM*****************

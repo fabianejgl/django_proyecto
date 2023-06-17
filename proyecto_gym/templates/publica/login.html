@@ -3,61 +3,13 @@
 {% block titulo %}Iniciar Sesión{% endblock titulo %}
 
 {% block contenido %}
-{% comment %} 
-<section class="container">
-    <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>
-        <div class="login">
-            <!--Grid column-->
-            <div class="col-md-6 mb-md-0 mb-6">
 
-                {% for message in messages %}
-                <div class="alert alert-{{message.tags}}" role="alert">
-                    {{message}}
-                </div>
-                {% endfor %}
-                <form id="login-gym" name="login-gym" action="{% url 'registro' %}" method="POST" novalidate>
-                    {% csrf_token %}
-                    
-                    <div class="row">
-                        {% for campo in login_gym%}
-                        <!--Grid column-->
-                        <div class="col-md-12">
-                            <div class="md-form mb-0">
-                                <label for="name" class="form-label">{{campo.label}}</label>
-                                {{campo}}
-                            </div>
-                            <div>{{ campo.errors}} </div>
-                        </div>
-                        {% endfor %}
-            
-                    <div class="text-center text-md-left mt-3">
-
-                        <button class="btn btn-warning" type="submit">Continuar</button>
-                    </div>
-                </form>
-                <div class="status"></div>
-            </div>   
-        </div>
-</section> {% endcomment %}
 
 <section class="mb-4 container">
     <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>               
     <div class="login">
         <div class="col-md-6 mb-md-0 mb-6">
 
-                {% comment %} {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{message}}
-                    </div>
-                {% endfor %}
-                {% if form.non_field_errors %}
-                    {% for error in form.non_field_errors %} 
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endcomment %}
             <form id="login-gym" name="login-gym" action="{% url 'registro' %}" method="POST" novalidate>
 
                 {% csrf_token %}
@@ -93,4 +45,6 @@
     </div>
     
 </section>
+
+
 {% endblock contenido %}

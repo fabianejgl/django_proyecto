@@ -478,7 +478,7 @@ iframe {
   border: 0;
 }
 .videoYT{
-  margin-top: 1em;
+  margin-top: 0;/*1em;*/
 }
 
 summary {
@@ -2029,9 +2029,9 @@ progress {
 .form-control:focus, .datatable-input:focus {
   color: #212529;
   background-color: #fff;
-  border-color: #86b7fe;
+  border-color: #e7ca0d;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.25);
 }
 .form-control::-webkit-date-and-time-value, .datatable-input::-webkit-date-and-time-value {
   height: 1.5em;
@@ -3258,8 +3258,8 @@ textarea.form-control-lg {
   --bs-dropdown-link-color: #212529;
   --bs-dropdown-link-hover-color: #1e2125;
   --bs-dropdown-link-hover-bg: #e9ecef;
-  --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #0d6efd;
+  --bs-dropdown-link-active-color:#fff;
+  --bs-dropdown-link-active-bg:#0d6efd;
   --bs-dropdown-link-disabled-color: #adb5bd;
   --bs-dropdown-item-padding-x: 1rem;
   --bs-dropdown-item-padding-y: 0.25rem;
@@ -3523,8 +3523,8 @@ textarea.form-control-lg {
   --bs-dropdown-link-hover-color: #fff;
   --bs-dropdown-divider-bg: var(--bs-border-color-translucent);
   --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.15);
-  --bs-dropdown-link-active-color: #fff;
-  --bs-dropdown-link-active-bg: #0d6efd;
+  --bs-dropdown-link-active-color: #212529;/*#fff;*/
+  --bs-dropdown-link-active-bg: #ffc107;
   --bs-dropdown-link-disabled-color: #adb5bd;
   --bs-dropdown-header-color: #adb5bd;
 }
@@ -11305,4 +11305,21 @@ body {
   background-repeat: no-repeat;
   background-size: 75% 70%;
   background-position: top 20% left 60%;
+}
+.perfil{
+  margin-top:0;
+}
+.perfil div{
+  padding: 1rem 3rem 0 3rem;
+}
+.perfil p{
+  padding-left: 3rem;
+  font-size: 1rem;
+}
+.perfil i{
+  font-size: 1,5rem;
+}
+.quienes_somos{
+  margin-top: 1rem;
+  font-size: 1.2em;
 }

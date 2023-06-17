@@ -26,7 +26,7 @@
                     <input type="text" id="{{form.username.auto_id}}" name="{{form.username.name}}"  value="{{ form.username.value | default:'' }}" class="form-control" />
                 </div>
                 <div class="error">{{form.username.errors}}</div>
-            
+               
                 <div class="md-form mb-0">
                     <label class="form-label">{{form.email.label}}</label>
                     <input type="email" id="{{form.username.auto_id}}" name="{{form.email.name}}"  value="{{ form.email.value | default:'' }}" class="form-control" />
@@ -59,10 +59,11 @@
             <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                 <button type="submit" class="btn btn-warning btn-lg">Registrarme</button>
             </div>
-            <a href="{% url 'login' %}">Click aquí para ingresar a tu cuenta</a>
+            <p class="small mt-2 pt-1 mb-0">Ya tienes cuenta? 
+                <a href="{% url 'login' %}">Click aquí</a>
+            </p>
         </form>
 
-    
     </div>
 </section>
 {% endblock contenido %}

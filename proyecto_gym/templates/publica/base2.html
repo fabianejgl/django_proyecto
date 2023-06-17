@@ -61,24 +61,25 @@
                                 Mi Cuenta
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                <li><a class="dropdown-item" href="{% url 'perfil'%}">Perfil</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <button type="button" class="btn btn-warning" onclick="location.href = '/log_out';">Cerrar sesión</button>
+                                <a type="button" class="btn btn-warning" href="{% url 'logout_user' %}">Cerrar sesión</a>
                             </ul>
                         </li>
                     </ul>
                     
                     {% else %}
                     </ul>
-                    <button type="button" class="btn btn-outline-light me-2" onclick="location.href = '/login';">Iniciar sesión</button>
-                    <button type="button" class="btn btn-warning" onclick="location.href = '/registro';">Registro</button>
+                    <a type="button" href="{% url 'login' %}" class="btn btn-outline-light me-2" >Iniciar sesión</a>
+                    <a type="button" href="{% url 'registro' %}" class="btn btn-warning" >Registro</a>
 
                     {% endif %} 
                 </div>
             </div>
         </nav>
+        
     </header>
 
     <!-- <main> -->
