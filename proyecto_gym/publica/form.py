@@ -17,94 +17,6 @@ def validate_email(value):
         raise ValidationError('Correo electrónico inválido')
     return value
 
-
-# class FormularioGym(forms.Form):
-#     TIPO_CLASE = (
-#         ('','-Seleccione-'),
-#         (1,'Yoga'),
-#         (2,'Pilates'),
-#         (3,'HIIT'),
-#         (4,'Spinning'),
-#         (5,'Entrenamiento funcional'),
-#         (6,'Actividades de Baile'),
-#         (7,'Actividades de Combate'),
-#         (8,'Actividades de Agua'),
-        
-#     )
-#     # nombre = forms.CharField(
-#     #         label='Nombre', 
-#     #         max_length=50,
-#     #         validators=(solo_caracteres,),
-#     #         error_messages={
-#     #                 'required': 'Por favor completa este campo'
-#     #             },
-#     #         widget=forms.TextInput(
-#     #                 attrs={'class':'form-control',
-#     #                     'placeholder':'Solo letras'}
-#     #                 )
-#     #     )
-#     # apellido = forms.CharField(
-#     #         label='Apellido', 
-#     #         max_length=50,
-#     #         validators=(solo_caracteres,),
-#     #         error_messages={
-#     #                 'required': 'Por favor completa este campo'
-#     #             },
-#     #         widget=forms.TextInput(
-#     #                 attrs={'class':'form-control',
-#     #                     'placeholder':'Solo letras'}
-#     #                 )
-#     #     )
-#     # celular = forms.CharField(
-#     #         label='Nro Celular', 
-#     #         max_length=50,
-#     #         validators=(solo_caracteres,),
-#     #         error_messages={
-#     #                 'required': 'Por favor completa este campo'
-#     #             },
-#     #         widget=forms.TextInput(
-#     #                 attrs={'class':'form-control',
-#     #                     }
-#     #                 )
-#     #     )
-#     # email = forms.EmailField(
-#     #         label='Email',
-#     #         max_length=100,
-#     #         validators=(validate_email,),
-#     #         error_messages={
-#     #                 'required': 'Por favor completa este campo'
-#     #             },
-#     #         widget=forms.TextInput(
-#     #             attrs={'class':'form-control','type':'email'})
-#     #     )
-#     # calle = forms.CharField(
-#     #         label='Calle', 
-#     #         max_length=50,
-#     #         required=False,
-#     #         widget=forms.TextInput(
-#     #                 attrs={'class':'form-control',
-#     #                     }
-#     #                 )
-#     #     )
-    
-#     tipo_clase = forms.ChoiceField(
-#         label='Elige una clase',
-#         choices=TIPO_CLASE,
-#         widget=forms.Select(attrs={'class':'form-control'})
-#     )
-#     consulta = forms.CharField(
-#         label='Dejanos una pregunta',
-#         max_length=500,
-#         required=False,
-#         widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
-#     )
-#     aceptoTyC = forms.BooleanField(
-#         label='Acepto Terminos y Condiciones',
-#         error_messages={
-#                     'required': 'Debes aceptar los terminos y condiciones.'
-#                 },
-#         widget=forms.CheckboxInput(attrs={'class':'form-check-input','value': 1})
-#     )
 class FormularioGym(UserCreationForm):
     telefono = forms.CharField(label='Telefono',
                                 max_length=50,
@@ -132,7 +44,6 @@ class FormularioGym(UserCreationForm):
             'password1': 'Contraseña',
             'password2': 'Repite la contraseña',
         }
-        #! no me toma los widgets asi que los puse en el html
         widgets = {
                 'first_name':forms.TextInput(
                         attrs={'class':'form-control',

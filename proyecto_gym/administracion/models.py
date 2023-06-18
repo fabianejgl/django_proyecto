@@ -29,8 +29,6 @@ class Clase(models.Model):
         self.portada.storage.delete(self.portada.name) #borrado fisico
         super().delete()
 
-
-
 class Persona(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     apellido = models.CharField(max_length=150,verbose_name='Apellido')
