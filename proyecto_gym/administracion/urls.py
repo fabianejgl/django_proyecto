@@ -14,7 +14,7 @@ urlpatterns = [
     #categoria
     path('categorias/', views.categorias_index,name='categorias_index'),
     path('categorias/nuevo/', views.categorias_nuevo,name='categorias_nuevo'),
-    path('categorias/editar/<int:portadaid_categoria>', views.categorias_editar,name='categorias_editar'),
+    path('categorias/editar/<int:id_categoria>', views.categorias_editar,name='categorias_editar'),
     path('categorias/eliminar/<int:id_categoria>', views.categorias_eliminar,name='categorias_eliminar'),
     #clase
     path('clases/', views.clases_index,name='clases_index'),

@@ -23,7 +23,7 @@ def password_admin(request):
 """
 def categorias_index(request):
     #queryset
-    categorias = Categoria.objects.filter(baja=False)
+    categorias = Categoria.objects.filter(baja=False).order_by('id')
     return render(request,'administracion/categorias/index.html',{'categorias':categorias})
 
 def categorias_nuevo(request):
@@ -33,7 +33,7 @@ def categorias_nuevo(request):
             categoria_nueva = formulario.cleaned_data['nombre']
             # Verificar si la categoría ya existe en la base de datos
             if Categoria.objects.filter(nombre=categoria_nueva).exists():
-                messages.error(request, 'Esta categoría ya pertenece a la base de datos, debe activarla')
+                messages.error(request, 'Esta categoría ya pertenece a la base de datos, revise si está activa')
             else:
                 formulario.save()
                 return redirect('categorias_index')
@@ -51,8 +51,12 @@ def categorias_editar(request,id_categoria):
     if(request.method=='POST'):
         formulario = CategoriaForm(request.POST,instance=categoria)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('categorias_index')
+            nombre_editado = formulario.cleaned_data['nombre']
+            if Categoria.objects.filter(nombre=nombre_editado).exists():
+                messages.error(request, 'Esta categoría ya pertenece a la base de datos, revise si está activa')
+            else:
+                formulario.save()
+                return redirect('categorias_index')
     else:
         formulario = CategoriaForm(instance=categoria)
     return render(request,'administracion/categorias/editar.html',{'form':formulario})
@@ -70,7 +74,7 @@ def categorias_eliminar(request,id_categoria):
 """ 
 def clases_index(request):
     #queryset
-    clases = Clase.objects.all()
+    clases = Clase.objects.all().order_by('id')
     return render(request,'administracion/clases/index.html',{'clases':clases})
 
 def clases_nuevo(request):
@@ -96,12 +100,26 @@ def clases_editar(request,id_clase):
         clase = Clase.objects.get(pk=id_clase)
     except Clase.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    formulario = ClaseForm(request.POST or None,request.FILES or None,instance=clase)
-    if formulario.is_valid():
-            formulario.save()
-            messages.success(request,'Se ha editado la clase correctamente')
-            return redirect('clases_index')
+    
+    if(request.method=='POST'):
+        formulario = ClaseForm(request.POST,instance=clase)
+        if formulario.is_valid():
+            nombre_editado = formulario.cleaned_data['nombre']
+            if Clase.objects.filter(nombre=nombre_editado).exists():
+                messages.error(request, 'Esta clase pertenece a la base de datos')
+            else:
+                formulario.save()
+                return redirect('clases_index')
+    else:
+        formulario = ClaseForm(instance=clase)
     return render(request,'administracion/clases/editar.html',{'formulario':formulario})
+
+    # formulario = ClaseForm(request.POST or None,request.FILES or None,instance=clase)
+    # if formulario.is_valid():
+    #         formulario.save()
+    #         messages.success(request,'Se ha editado la clase correctamente')
+    #         return redirect('clases_index')
+    # return render(request,'administracion/clases/editar.html',{'formulario':formulario})
 
 def clases_eliminar(request,id_clase):
     try:
@@ -121,13 +139,20 @@ def alumnos_index(request):
     return render(request,'administracion/alumnos/index.html',{'alumnos':alumnos})
 
 def alumnos_nuevo(request):
-    if(request.method=='POST'):
+
+    if request.method == 'POST':
         formulario = AlumnoForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('alumnos_index')
+            alumno_dni = formulario.cleaned_data['dni']
+            alumno_matricula = formulario.cleaned_data['matricula']
+            if Alumno.objects.filter(dni=alumno_dni,).exists() or Alumno.objects.filter(matricula=alumno_matricula,).exists():
+                messages.error(request, 'Verifique que el DNI y/o Matrícula no estén ya registrados')
+            else:
+                formulario.save()
+                return redirect('alumnos_index')
     else:
         formulario = AlumnoForm()
+        
     return render(request,'administracion/alumnos/nuevo.html',{'form':formulario})
 
 def alumnos_editar(request,id_alumno):
@@ -139,8 +164,13 @@ def alumnos_editar(request,id_alumno):
     if(request.method=='POST'):
         formulario = AlumnoForm(request.POST,instance=alumno)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('alumnos_index')
+            dni_edit = formulario.cleaned_data['dni']
+            matricula_edit = formulario.cleaned_data['matricula']
+            if Alumno.objects.filter(dni=dni_edit).exclude(id = id_alumno).exists() or Alumno.objects.filter(matricula=matricula_edit).exclude(id = id_alumno).exists():
+                messages.error(request, 'No puede usar un DNI y/o Matrícula ya existente en la base de datos')
+            else:
+                formulario.save()
+                return redirect('alumnos_index')
     else:
         formulario = AlumnoForm(instance=alumno)
     return render(request,'administracion/alumnos/editar.html',{'form':formulario})
@@ -158,17 +188,23 @@ def alumnos_eliminar(request,id_alumno):
 """
 def profesores_index(request):
     #queryset
-    profesores = Profesor.objects.all()
+    profesores = Profesor.objects.all().order_by('id')
     return render(request,'administracion/profesores/index.html',{'profesores':profesores})
 
 def profesores_nuevo(request):
-    if(request.method=='POST'):
+    if request.method == 'POST':
         formulario = ProfesorForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('profesores_index')
+            profesor_dni = formulario.cleaned_data['dni']
+            profesor_legajo = formulario.cleaned_data['legajo']
+            if Profesor.objects.filter(dni=profesor_dni,).exists() or Profesor.objects.filter(legajo=profesor_legajo,).exists():
+                messages.error(request, 'Verifique que el DNI y/o Legajo no estén ya registrados')
+            else:
+                formulario.save()
+                return redirect('profesores_index')
     else:
         formulario = ProfesorForm()
+        
     return render(request,'administracion/profesores/nuevo.html',{'form':formulario})
 
 def profesores_editar(request,id_profesor):
@@ -180,8 +216,13 @@ def profesores_editar(request,id_profesor):
     if(request.method=='POST'):
         formulario = ProfesorForm(request.POST,instance=profesor)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('profesores_index')
+            dni_edit = formulario.cleaned_data['dni']
+            legajo_edit = formulario.cleaned_data['legajo']
+            if Profesor.objects.filter(dni=dni_edit).exclude(id=id_profesor).exists() or Profesor.objects.filter(legajo=legajo_edit).exclude(id=id_profesor).exists():
+                messages.error(request, 'No puede usar un DNI y/o Legajo ya existente en la base de datos')
+            else:
+                formulario.save()
+                return redirect('profesores_index')
     else:
         formulario = ProfesorForm(instance=profesor)
     return render(request,'administracion/profesores/editar.html',{'form':formulario})
@@ -199,30 +240,40 @@ def profesores_eliminar(request,id_profesor):
 """
 def grupos_index(request):
     #queryset
-    grupos = Grupo.objects.all()
+    grupos = Grupo.objects.all().order_by('id')
     return render(request,'administracion/grupos/index.html',{'grupos':grupos})
 
 def grupos_nuevo(request):
-    if(request.method=='POST'):
+    if request.method == 'POST':
         formulario = GrupoForm(request.POST)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('grupos_index')
+            grupo_nombre = formulario.cleaned_data['nombre']
+            # profesor_legajo = formulario.cleaned_data['legajo']
+            if Grupo.objects.filter(nombre=grupo_nombre,).exists():
+                messages.error(request, 'Este nombre de grupo ya existe')
+            else:
+                formulario.save()
+                return redirect('grupos_index')
     else:
         formulario = GrupoForm()
+        
     return render(request,'administracion/grupos/nuevo.html',{'form':formulario})
 
 def grupos_editar(request, id_grupo):
     try:
         grupo = Grupo.objects.get(pk=id_grupo)
-    except Profesor.DoesNotExist:
+    except Grupo.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-
+    
     if(request.method=='POST'):
         formulario = GrupoForm(request.POST,instance=grupo)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('grupos_index')
+            nombre_editado = formulario.cleaned_data['nombre']
+            if Grupo.objects.filter(nombre=nombre_editado).exclude(id=id_grupo).exists():
+                messages.error(request, 'Este nombre de grupo ya pertenece a la base de datos')
+            else:
+                formulario.save()
+                return redirect('grupos_index')
     else:
         formulario = GrupoForm(instance=grupo)
     return render(request,'administracion/grupos/editar.html',{'form':formulario})
@@ -237,17 +288,23 @@ def grupos_eliminar(request, id_grupo):
 
 """CRUD INSCRIPCIONES"""
 def inscripciones_index(request):
-    inscripciones = Inscripcion.objects.all()
+    inscripciones = Inscripcion.objects.filter(alumno__baja=False).order_by('alumno__nombre')    #Ordena alfabeticamente alumnos con BAJA = FALSE
     return render(request,'administracion/inscripciones/index.html',{'inscripciones':inscripciones})
 
 def inscripciones_nuevo(request):
-    if(request.method=='POST'):
-        formulario = InscripcionForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('inscripciones_index')
+    if request.method == 'POST':
+            formulario = InscripcionForm(request.POST)
+            if formulario.is_valid():
+                inscripcion_alumno = formulario.cleaned_data['alumno']
+                inscripcion_grupo = formulario.cleaned_data['grupo']
+                if Inscripcion.objects.filter(alumno=inscripcion_alumno, grupo=inscripcion_grupo).exists():
+                    messages.error(request, 'Este alumno ya está inscripto a este grupo')
+                else:
+                    formulario.save()
+                    return redirect('inscripciones_index')
     else:
-        formulario = InscripcionForm()
+            formulario = InscripcionForm()
+            
     return render(request,'administracion/inscripciones/nuevo.html',{'form':formulario})
 
 def inscripciones_editar(request, id_inscripcion):
@@ -259,8 +316,13 @@ def inscripciones_editar(request, id_inscripcion):
     if(request.method=='POST'):
         formulario = InscripcionForm(request.POST,instance=inscripcion)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('inscripciones_index')
+            alumno_edit = formulario.cleaned_data['alumno']
+            grupo_edit = formulario.cleaned_data['grupo']
+            if Inscripcion.objects.filter(alumno=alumno_edit, grupo=grupo_edit).exists():
+                messages.error(request, 'Este alumno ya se inscribió a esta clase')
+            else:
+                formulario.save()
+                return redirect('inscripciones_index')
     else:
         formulario = InscripcionForm(instance=inscripcion)
     return render(request,'administracion/inscripciones/editar.html',{'form':formulario})
@@ -276,7 +338,7 @@ def inscripciones_eliminar(request, id_inscripcion):
 """CRUD SUCURSALES"""
 
 def sucursales_index(request):
-    sucursales = Sucursal.objects.all()
+    sucursales = Sucursal.objects.all().order_by('id')
     return render(request,'administracion/sucursales/index.html',{'sucursales':sucursales})
 
 def sucursales_nuevo(request):
@@ -284,8 +346,9 @@ def sucursales_nuevo(request):
         formulario = SucursalForm(request.POST or None,request.FILES or None)  #El formulario se completa lo que se recibe por POST y lo que se recibe por FILES.
         if formulario.is_valid():
             sucursal_nueva = formulario.cleaned_data['nombre']
-            if Sucursal.objects.filter(nombre=sucursal_nueva,).exists():
-                messages.error(request, 'Este nombre de sucursal ya existe en la base de datos')
+            direccion_nueva = formulario.cleaned_data['direccion']
+            if Sucursal.objects.filter(nombre=sucursal_nueva,).exists() or Sucursal.objects.filter(direccion=direccion_nueva,).exists():
+                messages.error(request, 'El nombre o dirección elegidos ya pertenecen a una sucursal')
             else:
                 formulario.save()
                 return redirect('sucursales_index')
@@ -303,8 +366,13 @@ def sucursales_editar(request, id_sucursal):
     if(request.method=='POST'):
         formulario = SucursalForm(request.POST,instance=sucursal)
         if formulario.is_valid():
-            formulario.save()
-            return redirect('sucursales_index')
+            nombre_edit = formulario.cleaned_data['nombre']
+            direc_edit = formulario.cleaned_data['direccion']
+            if Sucursal.objects.filter(nombre=nombre_edit).exists() or Sucursal.objects.filter(direccion=direc_edit).exists():
+                messages.error(request, 'Este nombre y/o direccion ya pertenece a una sucursal')
+            else:
+                formulario.save()
+                return redirect('sucursal_index')
     else:
         formulario = SucursalForm(instance=sucursal)
     return render(request,'administracion/sucursales/editar.html',{'form':formulario})

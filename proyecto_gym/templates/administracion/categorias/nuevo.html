@@ -15,15 +15,16 @@
     <div class="card-header">Creación de categoría</div>
     <div class="card-body">
         {% comment %} POR QUE NO SE VE ROJOOOOOOO {% endcomment %}
-        <div class='row mt-2'>
-            <div class='col-12'>
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{message}}
-                    </div>
-                {% endfor %}
+        {% comment %} {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{message}}
             </div>
+        {% endfor %} {% endcomment %}
+        {% for message in messages %}
+        <div class="alert alert-danger">
+            {{ message }}
         </div>
+        {% endfor %}
         <!-- bs5-table-defaul -->
         <form action="{% url 'categorias_nuevo' %}" method="post" novalidate>
             {% csrf_token %}

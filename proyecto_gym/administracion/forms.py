@@ -58,15 +58,15 @@ class AlumnoForm(forms.ModelForm):
         )
     email=forms.EmailField(
         label='Email',           
-        widget=forms.EmailInput(attrs={'class':'form-control'})
+        widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Ej: ejemplo@gmail.com'})
         )
     dni=forms.IntegerField(
         label='DNI',           
-        widget=forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Ingrese un email válido'})
+        widget=forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Ingrese un DNI no registrado'})
         )
     matricula=forms.CharField(
         label='Matricula',           
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese la matrícula única'})
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese una matrícula única'})
         )
     error_messages = {
         'nombre' :{
@@ -93,7 +93,7 @@ class ProfesorForm(forms.ModelForm):
         )
     dni=forms.IntegerField(
         label='DNI',           
-        widget=forms.NumberInput(attrs={'class':'form-control', })
+        widget=forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Ingrese un DNI no registrado'})
         )
     legajo=forms.CharField(
         label='Legajo',           
@@ -113,7 +113,7 @@ class GrupoForm(forms.ModelForm):
 
     nombre=forms.CharField(
         label='Nombre',           
-        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese un nombre'})
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Ingrese un nuevo nombre de grupo'})
         )
     dia=forms.ChoiceField(
         label='Dia',
@@ -123,7 +123,7 @@ class GrupoForm(forms.ModelForm):
         )
     horario=forms.TimeField(
         label='Horario',           
-        widget=forms.TimeInput(attrs={'class':'form-control'})
+        widget=forms.TimeInput(attrs={'class':'form-control', 'placeholder':'Ingrese horario de clase'})
         )
     clase=forms.ModelChoiceField(
         queryset=Clase.objects,
@@ -151,11 +151,11 @@ class InscripcionForm(forms.ModelForm):
     #     )
 
     alumno = forms.ModelChoiceField(
-        queryset=Alumno.objects,
+        queryset=Alumno.objects.filter(baja=False),
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    Grupo = forms.ModelChoiceField(
+    grupo = forms.ModelChoiceField(
         queryset=Grupo.objects,
         widget=forms.Select(attrs={'class': 'form-control'})
     )

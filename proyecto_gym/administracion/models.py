@@ -44,7 +44,8 @@ class Alumno(Persona):
     baja = models.BooleanField(default=0)
 
     def __str__(self):
-        return f"{self.matricula} - {self.nombre} {self.apellido}"
+        # return f"{self.matricula} - {self.nombre} {self.apellido}"
+        return f"{self.nombre} {self.apellido}"
     
     def soft_delete(self):
         self.baja=True
@@ -62,7 +63,11 @@ class Profesor(Persona):
     legajo = models.CharField(max_length=10,verbose_name='Legajo')
     
     def __str__(self):
-        return self.nombre
+        return self.nombre+ " " +self.apellido
+    
+    class Meta():
+        verbose_name_plural = 'Profesores'
+        # db_table = 'nombre_tabla'
 
 class Sucursal(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
@@ -75,6 +80,10 @@ class Sucursal(models.Model):
     def delete(self,using=None,keep_parents=False):
         self.portada.storage.delete(self.portada.name) #borrado fisico
         super().delete()
+    
+    class Meta():
+        verbose_name_plural = 'Sucursales'
+        # db_table = 'nombre_tabla'
 
 class Grupo(models.Model):
     DIAS = [
@@ -87,13 +96,17 @@ class Grupo(models.Model):
         (6,'Sábado'),
     ]
 
-    nombre = models.CharField(max_length=100,verbose_name="Nombre")
+    # numero = models.IntegerField(verbose_name="numero")
+    nombre = models.CharField(max_length=100,verbose_name='Nombre')
     dia = models.IntegerField(choices=DIAS,default=0)    #o default = 1?
     horario = models.CharField(max_length=100,verbose_name="Horario",null=True,default=None)
     clase = models.ForeignKey(Clase,on_delete=models.CASCADE) #relacion mucho a uno
     profesor = models.ForeignKey(Profesor,on_delete=models.CASCADE) #relacion mucho a uno
     alumnos = models.ManyToManyField(Alumno, through='Inscripcion')
     sucursal = models.ForeignKey(Sucursal,on_delete=models.CASCADE) #relacion mucho a uno 
+
+    def __str__(self):
+        return f"{self.nombre} (clase de {self.clase})"
 
 
 class Inscripcion(models.Model):
@@ -109,9 +122,11 @@ class Inscripcion(models.Model):
     estado = models.IntegerField(choices=ESTADOS,default=1)
 
     def __str__(self):
-        return self.alumno.nombre    
+        return f"Inscripcion de {self.alumno.nombre}"
 
-
+    class Meta():
+        verbose_name_plural = 'Inscripciones'
+        # db_table = 'nombre_tabla'
     
     
 #####AUTENTICACION##### Falta

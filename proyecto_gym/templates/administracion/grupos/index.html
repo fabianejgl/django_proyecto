@@ -4,7 +4,7 @@
 {% block titulo %}Clases{% endblock%}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Clases</h1>
+<h1 class="mt-4 m-lg-3">Grupos</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
     <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
     <li class="breadcrumb-item active">Grupos</li>
@@ -63,10 +63,9 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
+                    <th>Nombre de Grupo</th>
                     <th>Categoria</th>
                     <th>Día y horario</th>
-                    <th>Profespr</th>
                     <th>Profesor</th>
                     <th>Acciones</th>
                 </tr>
@@ -77,7 +76,8 @@
                         <td>{{grupo.id}}</td>
                         <td>{{grupo.nombre}}</td>
                         <td>{{grupo.clase.categoria.nombre}}</td>
-                        <td>{{grupo.dia}} a las {{grupo.horario}}</td>
+                        {% comment %} FILTRO PARA MOSTRAR LOS 5 PRIMEROS CARACTERES {% endcomment %}
+                        <td>{{grupo.get_dia_display}} a las {{grupo.horario|slice:":5" }}</td>
                         <td>{{grupo.profesor}}</td>
                         <td>
                             <a href="{% url 'grupos_editar' grupo.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
