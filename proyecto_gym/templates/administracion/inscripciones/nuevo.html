@@ -1,38 +1,35 @@
 {% extends '../base_admin.html' %}
 {% load static %}
 
-{% block titulo %}Nueva categoría{% endblock%}
+{% block titulo %}Nueva inscripción{% endblock%}
 
 {% block contenido_main %}
-<h1 class="mt-4 m-lg-3">Categorias clases</h1>
+<h1 class="mt-4 m-lg-3">Inscripciones Gold´s Gym</h1>
 <ol class="breadcrumb mb-4 m-lg-3">
     <li class="breadcrumb-item"><a href="{% url 'index' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nueva Categoria</li>
+    <li class="breadcrumb-item active">Nueva inscripcion</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Creación de categoría</div>
+    <div class="card-header">Inscripcion de alumno</div>
     <div class="card-body">
-        {% comment %} POR QUE NO SE VE ROJOOOOOOO {% endcomment %}
-        {% comment %} {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
-                {{message}}
-            </div>
-        {% endfor %} {% endcomment %}
+        {% comment %} -------ACÁ SE IMPRIMEN LOS MENSAJES DE ALERTA------ {% endcomment %}
         {% for message in messages %}
         <div class="alert alert-danger">
             {{ message }}
         </div>
         {% endfor %}
-        <!-- bs5-table-defaul -->
-        <form action="{% url 'categorias_nuevo' %}" method="post" novalidate>
+
+        
+        <form action="{% url 'inscripciones_nuevo' %}" method="post" novalidate>
             {% csrf_token %}
-            {% include 'administracion/categorias/form.html' %}
+            {% include 'administracion/inscripciones/form.html' %}
         </form>
     </div>
 </div>
 {% endblock %}
+
 
 {% block javascript %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

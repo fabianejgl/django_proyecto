@@ -1,5 +1,10 @@
 from django.db import models
+
 from django.contrib.auth.models import AbstractUser
+#
+from django.contrib.auth.models import User
+
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50,verbose_name='Nombre')
     baja = models.BooleanField(default=0)
@@ -40,7 +45,8 @@ class Alumno(Persona):
     baja = models.BooleanField(default=0)
 
     def __str__(self):
-        return f"{self.matricula} - {self.nombre} {self.apellido}"
+        # return f"{self.matricula} - {self.nombre} {self.apellido}"
+        return f"{self.nombre} {self.apellido}"
     
     def soft_delete(self):
         self.baja=True
@@ -56,29 +62,58 @@ class Alumno(Persona):
 
 class Profesor(Persona):
     legajo = models.CharField(max_length=10,verbose_name='Legajo')
+    
+    def __str__(self):
+        return self.nombre+ " " +self.apellido
+    
+    class Meta():
+        verbose_name_plural = 'Profesores'
+        # db_table = 'nombre_tabla'
 
 class Sucursal(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     direccion = models.CharField(max_length=255,verbose_name='Direccion')
+
     portada = models.ImageField(upload_to='imagenes/sucursal/',null=True,verbose_name='Portada') 
 
-    
+    #
+
+    portada = models.ImageField(upload_to='imagenes/',null=True,verbose_name='Portada')     #acá podria estar el error
+
 
     def __str__(self):
         return self.nombre
 
     def delete(self,using=None,keep_parents=False):
         self.portada.storage.delete(self.portada.name) #borrado fisico
-        super().delete()   
+        super().delete()
+    
+    class Meta():
+        verbose_name_plural = 'Sucursales'
+        # db_table = 'nombre_tabla'
 
 class Grupo(models.Model):
-    nombre = models.CharField(max_length=100,verbose_name="Nombre")
-    dia = models.CharField(max_length=100,verbose_name="Dia",null=True,default=None)
+    DIAS = [
+        (0,'¡SELECCIONE EL DÍA!'),
+        (1,'Lunes'),
+        (2,'Martes'),
+        (3,'Miércoles'),
+        (4,'Jueves'),
+        (5,'Viernes'),
+        (6,'Sábado'),
+    ]
+
+    # numero = models.IntegerField(verbose_name="numero")
+    nombre = models.CharField(max_length=100,verbose_name='Nombre')
+    dia = models.IntegerField(choices=DIAS,default=0)    #o default = 1?
     horario = models.CharField(max_length=100,verbose_name="Horario",null=True,default=None)
     clase = models.ForeignKey(Clase,on_delete=models.CASCADE) #relacion mucho a uno
     profesor = models.ForeignKey(Profesor,on_delete=models.CASCADE) #relacion mucho a uno
     alumnos = models.ManyToManyField(Alumno, through='Inscripcion')
     sucursal = models.ForeignKey(Sucursal,on_delete=models.CASCADE) #relacion mucho a uno 
+
+    def __str__(self):
+        return f"{self.nombre} (clase de {self.clase})"
 
 
 class Inscripcion(models.Model):
@@ -94,9 +129,27 @@ class Inscripcion(models.Model):
     estado = models.IntegerField(choices=ESTADOS,default=1)
 
     def __str__(self):
-        return self.alumno.nombre    
+      return f"Inscripcion de {self.alumno.nombre}"  
 
-class Usuario(AbstractUser):
+
+    class Meta():
+        verbose_name_plural = 'Inscripciones'
+        # db_table = 'nombre_tabla'
+    
+    
+#####AUTENTICACION##### Falta
+#buena práctica, no lo usamos en este caso,
+# class Usuario(AbstractUser):
+#      pass                             
+
+
+class Perfil(models.Model):
+    """MODELO QUE PERMITE DEL USER MODEL DE DJANGO PARA AGREGERLE CAMPOS EXTRAS"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+    telefono = models.CharField(max_length=20,verbose_name='Teléfono')
+    domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
+    foto = models.ImageField(upload_to='perfiles/',null=True,verbose_name='Foto Perfil')
+   
+  class Usuario(AbstractUser):
     pass    
-
 
