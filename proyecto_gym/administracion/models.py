@@ -1,4 +1,7 @@
 from django.db import models
+
+from django.contrib.auth.models import AbstractUser
+#
 from django.contrib.auth.models import User
 
 
@@ -30,8 +33,6 @@ class Clase(models.Model):
     def delete(self,using=None,keep_parents=False):
         self.portada.storage.delete(self.portada.name) #borrado fisico
         super().delete()
-
-
 
 class Persona(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
@@ -72,7 +73,13 @@ class Profesor(Persona):
 class Sucursal(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
     direccion = models.CharField(max_length=255,verbose_name='Direccion')
+
+    portada = models.ImageField(upload_to='imagenes/sucursal/',null=True,verbose_name='Portada') 
+
+    #
+
     portada = models.ImageField(upload_to='imagenes/',null=True,verbose_name='Portada')     #acá podria estar el error
+
 
     def __str__(self):
         return self.nombre
@@ -122,7 +129,8 @@ class Inscripcion(models.Model):
     estado = models.IntegerField(choices=ESTADOS,default=1)
 
     def __str__(self):
-        return f"Inscripcion de {self.alumno.nombre}"
+      return f"Inscripcion de {self.alumno.nombre}"  
+
 
     class Meta():
         verbose_name_plural = 'Inscripciones'
@@ -141,3 +149,7 @@ class Perfil(models.Model):
     telefono = models.CharField(max_length=20,verbose_name='Teléfono')
     domicilio = models.CharField(max_length=20,verbose_name='Domicilio')
     foto = models.ImageField(upload_to='perfiles/',null=True,verbose_name='Foto Perfil')
+   
+  class Usuario(AbstractUser):
+    pass    
+

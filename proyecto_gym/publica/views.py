@@ -1,13 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from datetime import datetime
 from django.contrib import messages
 
+from django.contrib.auth import authenticate, login, logout 
+
 from publica.form import FormularioGym
-from publica.form import LoginGym
+
 
 def index(request):
+    
     
     listado_cursos = [
         {
@@ -69,43 +72,38 @@ def sucursales(request):
 
 def registro(request):  
     
-    if(request.method=='POST'):
-        formulario_gym = FormularioGym(request.POST)
-        # acción para tomar los datos del formulario
-        if formulario_gym.is_valid():
-            messages.success(request,'Recibimos tus datos')
-        else:
-            messages.warning(
-                request, 'Por favor completa el formulario'
+    if request.method == 'POST':
+        form = FormularioGym(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Felicidades! Ya creaste tu cuenta.'
             )
+            # return redirect ('login')
     else:
-        formulario_gym = FormularioGym()   
-    
-    
-    context = {                
-                'formulario_gym':formulario_gym
-            }
-    return render(request,'publica/registro.html', context)
+        form = FormularioGym()
+    return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
 
-def login(request):  
-    
-    if(request.method=='POST'):
-        login_gym = LoginGym(request.POST)
-        if login_gym.is_valid():
-            messages.success(request,'log')
+def login_user(request):  
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect ('inicio')
         else:
-            messages.warning(
-                request, 'log2'
-            )
+            messages.success(request ("Hubo un error!"))
+            return redirect('login')
     else:
-        login_gym = LoginGym()   
-    
-    
-    context = {                
-                'login_gym':login_gym
-            }
-    return render(request,'publica/login.html', context)
+        return render(request, 'publica/inicio.html',{})
 
+def logout_user(request):
+    logout(request)
+    return redirect ('inicio')
 
+def perfil(request):
+    return render(request, 'publica/perfil.html')
+    
 
 #**************Proyecto_GYM*****************

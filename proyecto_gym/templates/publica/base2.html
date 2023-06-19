@@ -54,16 +54,32 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'quienes_somos' %} ">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
 
-
+                    {% if user.is_authenticated %} 
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mi Cuenta
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="{% url 'perfil'%}">Perfil</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <a type="button" class="btn btn-warning" href="{% url 'logout_user' %}">Cerrar sesión</a>
+                            </ul>
+                        </li>
                     </ul>
+                    
+                    {% else %}
+                    </ul>
+                    <a type="button" href="{% url 'login' %}" class="btn btn-outline-light me-2" >Iniciar sesión</a>
+                    <a type="button" href="{% url 'registro' %}" class="btn btn-warning" >Registro</a>
 
-                    <div class="text-end">
-                        <button type="button" class="btn btn-outline-light me-2" onclick="location.href = '/login';">Iniciar sesión</button>
-                        <button type="button" class="btn btn-warning" onclick="location.href = '/registro';">Registro</button>
-                    </div>
+                    {% endif %} 
                 </div>
             </div>
         </nav>
+        
     </header>
 
     <!-- <main> -->

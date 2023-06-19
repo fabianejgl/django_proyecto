@@ -106,6 +106,9 @@ class ProfesorForm(forms.ModelForm):
         }
     class Meta:
         model=Profesor
+
+        fields=['nombre','apellido','email','dni','legajo']
+
         fields=['nombre','apellido','email','dni','legajo']
 
 ###--GRUPO FORM--
@@ -188,3 +191,4 @@ class SucursalForm(forms.ModelForm):
     class Meta:
         model=Sucursal
         fields=['nombre','direccion','portada']
+

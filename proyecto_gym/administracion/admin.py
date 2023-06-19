@@ -1,4 +1,10 @@
 from django.contrib import admin
+
+from .models import Usuario
+
+# Register your models here.
+admin.site.register(Usuario)
+
 from administracion.models import Alumno,Profesor,Categoria,Clase,Grupo,Inscripcion,Sucursal
 #admin
 from django.contrib.auth.models import Group, User
@@ -86,3 +92,4 @@ sitio_admin.register(Sucursal,SucursalAdmin)
 
 sitio_admin.register(User,UserAdmin)                     #Preguntar????
 sitio_admin.register(Group, GroupAdmin)
+

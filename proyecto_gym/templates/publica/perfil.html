@@ -1,0 +1,26 @@
+{% extends '../publica/base2.html' %}
+
+{% block titulo %}Perfil{% endblock titulo %}
+
+{% block contenido %}
+
+<div class="container perfil">
+    
+  <h2>Hola {{user.username}}!</h2>
+  
+  <div>
+    <h4><i class="fa-solid fa-circle-user"></i>
+    Datos personales: </h4>
+  </div>
+  
+  <div class="">
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellido: {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>DNI: {{persona.dni}}</p>
+    <p>Telefono: {{user.telefono}}</p>
+  </div>
+    
+</div>
+
+{% endblock contenido %}

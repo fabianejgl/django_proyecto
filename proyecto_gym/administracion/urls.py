@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.index_admin,name='index'),
     # path('categorias/', views.categorias_index,name='categorias_index'),
     # path("administracion/", views.index_admin, name="index"),  Fabi acá le saque la palabra administracion, se la agregue en la url principal. Para no estar poniendo todos los path administracion/....
-    path("login/", views.login_admin, name="login"),
+    path("login_admin/", views.login_admin, name="login_admin"), #le cambie el nombre para que no se confunda con el de publica, y ya que la publica lo verian los usuarios que quede solo login
     path("register/", views.register_admin, name="register"),
     path("password/", views.password_admin, name="password"),
 
