@@ -6,7 +6,7 @@
 
 <div class="container perfil">
     
-  <h2>Hola {{user.username}}!</h2>
+  <h2>Hola {{ user.username }}!</h2>
   
   <div>
     <h4><i class="fa-solid fa-circle-user"></i>
@@ -14,12 +14,25 @@
   </div>
   
   <div class="">
-    <p>Nombre de usuario: {{user}}</p>
-    <p>Nombre: {{user.first_name}}</p>
-    <p>Apellido: {{user.last_name}}</p>
-    <p>Email: {{user.email}}</p>
-    {% comment %} <p>DNI: {{persona.dni}}</p> {% endcomment %}
-    {% comment %} <p>Telefono: {{user.telefono}}</p> {% endcomment %}
+    <p>Nombre de usuario: {{ user }}</p>
+    <p>Nombre: {{ user.first_name }}</p>
+    <p>Apellido: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    {% comment %} <p>DNI: {{ persona.dni }}</p> {% endcomment %}
+    {% comment %} <p>Telefono: {{ user.telefono }}</p> {% endcomment %}
+  </div>
+  
+  <div>
+    <h4>Bienvenido al perfil de usuario de Gold's Gym</h4>
+    <p>En esta sección encontrarás información detallada sobre tu cuenta y tus datos personales registrados en nuestro sistema. Te recordamos que estos datos son confidenciales y se utilizan únicamente con fines administrativos y de comunicación.</p>
+    <p>Si tienes alguna pregunta o necesitas realizar alguna modificación en tus datos, no dudes en contactar con el administrador general.</p>
+  </div>
+  
+  <div>
+    <h4>Bases y condiciones de trabajo</h4>
+    <p>En Gold's Gym nos comprometemos a brindarte un entorno de trabajo seguro y saludable. Nuestro objetivo es proporcionarte las mejores condiciones para que puedas desarrollar tus actividades laborales de manera satisfactoria.</p>
+    <p>Te recordamos que es importante cumplir con las políticas y regulaciones establecidas por la empresa. Esto incluye respetar los horarios de trabajo, mantener la confidencialidad de la información, seguir los protocolos de seguridad y respetar a tus compañeros y clientes.</p>
+    <p>Si tienes alguna duda sobre nuestras políticas o condiciones de trabajo, te invitamos a consultar el manual del empleado o contactar al departamento de recursos humanos.</p>
   </div>
     
 </div>

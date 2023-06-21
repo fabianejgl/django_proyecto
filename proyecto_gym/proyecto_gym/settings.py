@@ -159,7 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 #Autenticación, Modelo User
 AUTH_USER_MODEL = 'administracion.Usuario'
 LOGIN_URL = '/login/'      #esto sería poner el URL de iniciar sesión?
-LOGIN_REDIRECT_URL = "inicio"
+LOGIN_REDIRECT_URL = "index"
 
 #si quisiese cambiar el algoritmo de encriptación de contraseña escribo esto:
 # PASSWORD_HASHERS=[

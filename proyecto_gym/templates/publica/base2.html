@@ -44,7 +44,7 @@
             </div>
             <div class="container-fluid">
 
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse" id="navbarCollapse" href="#">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
                         <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
@@ -73,8 +73,8 @@
                     
                     {% else %}
                     </ul>
-                    <a type="button" href="{% url 'login' %}" class="btn btn-outline-light me-2" >Iniciar sesión</a>
-                    <a type="button" href="{% url 'registro' %}" class="btn btn-warning" >Registro</a>
+                    <a type="button" href="{% url 'login' %}" class="btn btn-outline-light me-2" >Iniciar sesión (Gold's Gym Staff)</a>
+                    {% comment %} <a type="button" href="{% url 'registro' %}" class="btn btn-warning" >Registro</a> {% endcomment %}
 
                     {% endif %} 
                 </div>

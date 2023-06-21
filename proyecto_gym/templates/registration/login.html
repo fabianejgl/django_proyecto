@@ -1,52 +1,65 @@
 {% extends '../publica/base2.html' %}
 
-{% block titulo %}Iniciar Sesión{% endblock titulo %}
+{% block titulo %}
+    Iniciar Sesión
+{% endblock titulo %}
 
 {% block contenido %}
-
 <section class="mb-4 container">
-  <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>               
-  <div class="login">
-      <div class="col-md-6 mb-md-0 mb-6">
-
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" role="alert">
-                {{message}}
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Iniciar Sesión</h2>               
+    <div class="login">
+        <div class="col-md-6 mb-md-0 mb-6">
+            <div class="alert alert-info" role="alert">
+                Inicia sesión con tu cuenta de Staff para acceder al panel de administración y gestionar el sitio web y base de datos de Gold's Gym.
             </div>
-        {% endfor %}
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %} 
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
+            <form id="login-gym" name="login-gym" method="POST" novalidate>
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %} 
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% csrf_token %}
+                
+                <div class="md-form mb-4">
+                    <label class="form-label" for="{{ form.username.id_for_label }}">Usuario</label>
+                    <input type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" class="form-control form-control-lg"
+                        placeholder="" value="{{ form.username.value | default:'' }}" />
+                    <div class="error">{{ form.username.errors }}</div>
                 </div>
-            {% endfor %}
-        {% endif %}
-        
-          <form method="POST" id="login-gym">
-              {% csrf_token %}
-              
-                  <div class="md-form mb-0">
-                    <label for="username" class="form-label" >Usuario</label>
-                    <input type="text" class="form-control form-control-lg" name="username" placeholder="Escribe tu nombre de usuario">
-                  </div>
-
-                  <div class="mb-4">
-                    <div class="form-group">
-                      <label for="password">Contraseña</label>
-                      <input type="password" class="form-control form-control-lg" name="password" placeholder="Escribe tu contraseña">
-                    </div>
-                  </div>
-
-                  <div class="mb-4 ">
+    
+                <div class="md-form mb-4">
+                    <label class="form-label" for="{{ form.password.id_for_label }}">Contraseña</label>
+                    <input type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" class="form-control form-control-lg"
+                        placeholder="" value="{{ form.password.value | default:'' }}" />
+                    <div class="error">{{ form.password.errors }}</div>
+                </div>
+                
+                <div class="mb-4">
                     <div class="text-center text-md-left mt-3">
-                      <button type="submit" class="btn btn-warning">Continuar</button>
-                      <p class="small mt-2 pt-1 mb-0">No tienes una cuenta? 
-                        <a href="{% url 'registro' %}" class="link-primary">Registrate</a>
-                      </p>
+                        <button type="submit" class="btn btn-warning btn-lg">Continuar</button>
                     </div>
-                  </div>
-
-              </form>
+                </div>
+            </form>
+            <p class="text-center">
+              ¿Olvidaste tu contraseña? No te preocupes, puedes <a href="#">restablecerla aquí</a>.
+            </p>
+            <p class="text-center">
+              Si no tienes una cuenta de Staff, por favor, contacta al administrador del sitio.
+            </p>
+            <p class="text-center">
+              Estamos comprometidos en brindarte el mejor acompañamiento y apoyo en todo momento.
+            </p>
+            <p class="text-center">
+              ¡Muchas gracias por formar parte de este equipo!
+            </p>
+        </div>
+    </div>
 </section>
-
-{% endblock contenido %}
+{% endblock %}

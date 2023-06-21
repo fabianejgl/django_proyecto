@@ -67,22 +67,22 @@ def quienes_somos(request):
 def ver_cursos(request):
     return render(request,'publica/contacto.html')
 
-def sucursales(request):    
+def ver_sucursales(request):    
     return render(request,'publica/sucursales.html')
 
-def registro(request):  
-    
-    if request.method == 'POST':
-        form = FormularioGym(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, f'Felicidades! Ya creaste tu cuenta.'
-            )
-            # return redirect ('login')
-    else:
-        form = FormularioGym()
-    return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
+    # def registro(request):  
+        
+    #     if request.method == 'POST':
+    #         form = FormularioGym(request.POST)
+    #         if form.is_valid():
+    #             form.save()
+    #             messages.success(
+    #                 request, f'Felicidades! Ya creaste tu cuenta.'
+    #             )
+    #             # return redirect ('login')
+    #     else:
+    #         form = FormularioGym()
+    #     return render(request, 'publica/registro.html', {'form': form, 'title': 'Registrate gratis'})
 
 def login_user(request):  
     if request.method == "POST":
@@ -104,9 +104,9 @@ def login_user(request):
         else:
             # messages.success(request ("Hubo un error!"))
             messages.error(request, f"Error: usuario o contraseña incorreco, vuelva a intentar y verifique su usuario y contraseña")
-            return redirect('login')
-    else:
-        return render(request, 'publica/inicio.html',{})
+            # return redirect('login')
+    #form = Authenticationform
+    return render(request, 'publica/inicio.html',{})
 
 def logout_user(request):
     logout(request)
