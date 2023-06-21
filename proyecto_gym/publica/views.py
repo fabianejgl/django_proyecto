@@ -88,12 +88,22 @@ def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
+        #busca el usuario en modelo de user
         user = authenticate(request, username=username, password=password)
+        #si existe...
         if user is not None:
-            login(request,user)
-            return redirect ('inicio')
+            login(request,user)         #inicia
+            # nxt = request.GET.get("next",none)    #me dice a dónde redirigir
+            # return redirect ('inicio')
+            # if nxt is None:
+            #     return redirect('inicio')
+            # else
+            #     return redirect(nxt)
+
+        #sino...
         else:
-            messages.success(request ("Hubo un error!"))
+            # messages.success(request ("Hubo un error!"))
+            messages.error(request, f"Error: usuario o contraseña incorreco, vuelva a intentar y verifique su usuario y contraseña")
             return redirect('login')
     else:
         return render(request, 'publica/inicio.html',{})

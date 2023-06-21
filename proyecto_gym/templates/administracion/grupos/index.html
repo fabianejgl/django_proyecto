@@ -64,7 +64,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre de Grupo</th>
-                    <th>Categoria</th>
+                    <th>Clase (Categoria)</th>
                     <th>Día y horario</th>
                     <th>Profesor</th>
                     <th>Acciones</th>
@@ -75,7 +75,7 @@
                     <tr>
                         <td>{{grupo.id}}</td>
                         <td>{{grupo.nombre}}</td>
-                        <td>{{grupo.clase.categoria.nombre}}</td>
+                        <td>{{grupo.clase}} ({{grupo.clase.categoria.nombre}})</td>
                         {% comment %} FILTRO PARA MOSTRAR LOS 5 PRIMEROS CARACTERES {% endcomment %}
                         <td>{{grupo.get_dia_display}} a las {{grupo.horario|slice:":5" }}</td>
                         <td>{{grupo.profesor}}</td>

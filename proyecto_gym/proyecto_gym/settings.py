@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+    #acá puede haber error o algo
 ALLOWED_HOSTS = []
 
 
@@ -82,16 +82,6 @@ WSGI_APPLICATION = 'proyecto_gym.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'gimnasio',
-        # 'USER': 'nombreusuario',
-        # 'PASSWORD': 'root',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306',
-    #Poner en .env lo de arriba Eva así cada uno tiene la base de datos en su .env y no lo modificamos mucho            #Borrar este comentario*
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env("DATABASE_NAME"),
         'USER': env("DATABASE_USER"),
@@ -162,6 +152,19 @@ MEDIA_URL = "/media/"
 #media para produccion
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-AUTH_USER_MODEL = 'administracion.Usuario'
+#Configuración para envío de email por GMAIL
+#(a completar....)
 
+
+#Autenticación, Modelo User
+AUTH_USER_MODEL = 'administracion.Usuario'
+LOGIN_URL = '/login/'      #esto sería poner el URL de iniciar sesión?
 LOGIN_REDIRECT_URL = "inicio"
+
+#si quisiese cambiar el algoritmo de encriptación de contraseña escribo esto:
+# PASSWORD_HASHERS=[
+#     'django.contribu.auth.hashers.PBKDF2PasswordHasher',  #este es el que usa por defecto, pero hay otros
+#     'django.contribu.auth.hashers.PBKDF2SHA1PasswordHaser',
+#     'django.contribu.auth.hashers.Argon2PasswordHasher',
+#     'django.contribu.auth.hashers.BCryptSHA256PasswordHaser',
+# ]

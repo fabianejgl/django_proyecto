@@ -25,7 +25,7 @@
                         <a class="nav-link" href="{% url 'sucursales_index'%} ">Sucursales</a>
                     </nav>
                 </div>
-#
+{% comment %} #Acá hubo un cambio del merge {% endcomment %}
                 <a class="nav-link" href="{% url 'inicio' %}">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-reply"></i></div>
                     Ir sitio principal
@@ -34,7 +34,7 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            {{user}}
         </div>
     </nav>
 </div>

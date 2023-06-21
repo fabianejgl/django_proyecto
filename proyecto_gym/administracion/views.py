@@ -4,8 +4,29 @@ from administracion.forms import CategoriaForm, ClaseForm, AlumnoForm, ProfesorF
 from administracion.models import Categoria, Clase, Alumno, Profesor, Grupo, Sucursal, Inscripcion
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 # Create your views here.
+from django.contrib.auth.decorators import user_passes_test
 
+#implemento decorador group_required para que los que pertenezcan a ese grupo puedan ingresar (además del superuser obvio)
+    #Esta implementación dejaba afuera al superusuario, solo dejaba entrar a los del grupo específico
+# def group_required(group_name):
+#     def decorator(view_func):
+#         decorated_view_func = user_passes_test(lambda user: user.groups.filter(name=group_name).exists(), login_url='/login/')
+#         return decorated_view_func(view_func)
+#     return decorator
+def group_required(group_name):
+    def decorator(view_func):
+        decorated_view_func = user_passes_test(
+            lambda user: user.is_superuser or user.groups.filter(name=group_name).exists(),
+            login_url='/login/'
+        )
+        return decorated_view_func(view_func)
+    return decorator
+
+@login_required
+@group_required('admins_front')
 def index_admin(request):
     return render(request, 'administracion/index_admin.html')
 
@@ -21,11 +42,15 @@ def password_admin(request):
 """
     CRUD Categorias
 """
+@login_required
+@group_required('admins_front')
 def categorias_index(request):
     #queryset
     categorias = Categoria.objects.filter(baja=False).order_by('id')
     return render(request,'administracion/categorias/index.html',{'categorias':categorias})
 
+@login_required
+@group_required('admins_front')
 def categorias_nuevo(request):
     if request.method == 'POST':
         formulario = CategoriaForm(request.POST)
@@ -42,6 +67,8 @@ def categorias_nuevo(request):
 
     return render(request,'administracion/categorias/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def categorias_editar(request,id_categoria):
     try:
         categoria = Categoria.objects.get(pk=id_categoria)
@@ -61,6 +88,8 @@ def categorias_editar(request,id_categoria):
         formulario = CategoriaForm(instance=categoria)
     return render(request,'administracion/categorias/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def categorias_eliminar(request,id_categoria):
     try:
         categoria = Categoria.objects.get(pk=id_categoria)
@@ -72,11 +101,15 @@ def categorias_eliminar(request,id_categoria):
 """
     CRUD Clases
 """ 
+@login_required
+@group_required('admins_front')
 def clases_index(request):
     #queryset
     clases = Clase.objects.all().order_by('id')
     return render(request,'administracion/clases/index.html',{'clases':clases})
 
+@login_required
+@group_required('admins_front')
 def clases_nuevo(request):
     #forma de resumida de instanciar un formulario basado en model con los
     #datos recibidos por POST si la petición es por POST o bien vacio(None)
@@ -95,6 +128,8 @@ def clases_nuevo(request):
     
     return render(request,'administracion/clases/nuevo.html',{'formulario':formulario})
 
+@login_required
+@group_required('admins_front')
 def clases_editar(request,id_clase):
     try:
         clase = Clase.objects.get(pk=id_clase)
@@ -121,6 +156,8 @@ def clases_editar(request,id_clase):
     #         return redirect('clases_index')
     # return render(request,'administracion/clases/editar.html',{'formulario':formulario})
 
+@login_required
+@group_required('admins_front')
 def clases_eliminar(request,id_clase):
     try:
         clase = Clase.objects.get(pk=id_clase)
@@ -133,11 +170,15 @@ def clases_eliminar(request,id_clase):
 """
     CRUD Alumnos
 """
+@login_required
+@group_required('admins_front')
 def alumnos_index(request):
     #queryset
     alumnos = Alumno.objects.filter(baja=False)
     return render(request,'administracion/alumnos/index.html',{'alumnos':alumnos})
 
+@login_required
+@group_required('admins_front')
 def alumnos_nuevo(request):
 
     if request.method == 'POST':
@@ -155,6 +196,8 @@ def alumnos_nuevo(request):
         
     return render(request,'administracion/alumnos/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def alumnos_editar(request,id_alumno):
     try:
         alumno = Alumno.objects.get(pk=id_alumno)
@@ -175,6 +218,8 @@ def alumnos_editar(request,id_alumno):
         formulario = AlumnoForm(instance=alumno)
     return render(request,'administracion/alumnos/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def alumnos_eliminar(request,id_alumno):
     try:
         alumno = Alumno.objects.get(pk=id_alumno)
@@ -186,11 +231,15 @@ def alumnos_eliminar(request,id_alumno):
 """
     CRUD Profesores
 """
+@login_required
+@group_required('admins_front')
 def profesores_index(request):
     #queryset
     profesores = Profesor.objects.all().order_by('id')
     return render(request,'administracion/profesores/index.html',{'profesores':profesores})
 
+@login_required
+@group_required('admins_front')
 def profesores_nuevo(request):
     if request.method == 'POST':
         formulario = ProfesorForm(request.POST)
@@ -207,6 +256,8 @@ def profesores_nuevo(request):
         
     return render(request,'administracion/profesores/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def profesores_editar(request,id_profesor):
     try:
         profesor = Profesor.objects.get(pk=id_profesor)
@@ -227,6 +278,8 @@ def profesores_editar(request,id_profesor):
         formulario = ProfesorForm(instance=profesor)
     return render(request,'administracion/profesores/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def profesores_eliminar(request,id_profesor):
     try:
         profesor = Profesor.objects.get(pk=id_profesor)
@@ -238,11 +291,15 @@ def profesores_eliminar(request,id_profesor):
 """
     CRUD Grupos
 """
+@login_required
+@group_required('admins_front')
 def grupos_index(request):
     #queryset
     grupos = Grupo.objects.all().order_by('id')
     return render(request,'administracion/grupos/index.html',{'grupos':grupos})
 
+@login_required
+@group_required('admins_front')
 def grupos_nuevo(request):
     if request.method == 'POST':
         formulario = GrupoForm(request.POST)
@@ -259,6 +316,8 @@ def grupos_nuevo(request):
         
     return render(request,'administracion/grupos/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def grupos_editar(request, id_grupo):
     try:
         grupo = Grupo.objects.get(pk=id_grupo)
@@ -278,6 +337,8 @@ def grupos_editar(request, id_grupo):
         formulario = GrupoForm(instance=grupo)
     return render(request,'administracion/grupos/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def grupos_eliminar(request, id_grupo):
     try:
         grupo = Grupo.objects.get(pk=id_grupo)
@@ -287,10 +348,14 @@ def grupos_eliminar(request, id_grupo):
     return redirect('grupos_index')
 
 """CRUD INSCRIPCIONES"""
+@login_required
+@group_required('admins_front')
 def inscripciones_index(request):
     inscripciones = Inscripcion.objects.filter(alumno__baja=False).order_by('alumno__nombre')    #Ordena alfabeticamente alumnos con BAJA = FALSE
     return render(request,'administracion/inscripciones/index.html',{'inscripciones':inscripciones})
 
+@login_required
+@group_required('admins_front')
 def inscripciones_nuevo(request):
     if request.method == 'POST':
             formulario = InscripcionForm(request.POST)
@@ -307,6 +372,8 @@ def inscripciones_nuevo(request):
             
     return render(request,'administracion/inscripciones/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def inscripciones_editar(request, id_inscripcion):
     try:
         inscripcion = Inscripcion.objects.get(pk=id_inscripcion)
@@ -327,6 +394,8 @@ def inscripciones_editar(request, id_inscripcion):
         formulario = InscripcionForm(instance=inscripcion)
     return render(request,'administracion/inscripciones/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def inscripciones_eliminar(request, id_inscripcion):
     try:
         inscripcion = Inscripcion.objects.get(pk=id_inscripcion)
@@ -336,11 +405,14 @@ def inscripciones_eliminar(request, id_inscripcion):
     return redirect('inscripciones_index')
 
 """CRUD SUCURSALES"""
-
+@login_required
+@group_required('admins_front')
 def sucursales_index(request):
     sucursales = Sucursal.objects.all().order_by('id')
     return render(request,'administracion/sucursales/index.html',{'sucursales':sucursales})
 
+@login_required
+@group_required('admins_front')
 def sucursales_nuevo(request):
     if request.method == 'POST':
         formulario = SucursalForm(request.POST or None,request.FILES or None)  #El formulario se completa lo que se recibe por POST y lo que se recibe por FILES.
@@ -357,6 +429,8 @@ def sucursales_nuevo(request):
     
     return render(request,'administracion/sucursales/nuevo.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def sucursales_editar(request, id_sucursal):
     try:
         sucursal = Sucursal.objects.get(pk=id_sucursal)
@@ -377,6 +451,8 @@ def sucursales_editar(request, id_sucursal):
         formulario = SucursalForm(instance=sucursal)
     return render(request,'administracion/sucursales/editar.html',{'form':formulario})
 
+@login_required
+@group_required('admins_front')
 def sucursales_eliminar(request, id_sucursal):
     try:
         sucursal = Sucursal.objects.get(pk=id_sucursal)

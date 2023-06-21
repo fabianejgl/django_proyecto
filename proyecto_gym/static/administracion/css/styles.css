@@ -11323,3 +11323,9 @@ body {
   margin-top: 1rem;
   font-size: 1.2em;
 }
+/* Cambio para intentar centrar el menú desplegable pero no funciona */
+/* #custom-ul-class {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */

@@ -1,14 +1,13 @@
 from django.contrib import admin
-
-from .models import Usuario
-
-# Register your models here.
-admin.site.register(Usuario)
-
 from administracion.models import Alumno,Profesor,Categoria,Clase,Grupo,Inscripcion,Sucursal
 #admin
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
+
+from .models import Usuario
+# Register your models here.
+# admin.site.register(Usuario)
+
 
 # Register your models here.
 class CacAdminSite(admin.AdminSite):
@@ -16,7 +15,6 @@ class CacAdminSite(admin.AdminSite):
     site_title = 'Administracion superusuario'
     index_title= 'Administracion'
     empty_value_display = 'No hay datos para visualizar por el momento'
-
 
 
 # Personalizacion de visualizacion de modelos en el Admin de Django
@@ -29,6 +27,7 @@ class CategoriaAdmin(admin.ModelAdmin):
         query = super(CategoriaAdmin, self).get_queryset(request)
         filtered_query = query.filter(baja=False)
         return filtered_query
+
 
 class ClaseAdmin(admin.ModelAdmin):
     list_display = ( 'nombre', 'categoria')
@@ -90,6 +89,7 @@ sitio_admin.register(Grupo,GrupoAdmin)
 sitio_admin.register(Inscripcion,InscripcionAdmin)
 sitio_admin.register(Sucursal,SucursalAdmin)
 
-sitio_admin.register(User,UserAdmin)                     #Preguntar????
+sitio_admin.register(Usuario,UserAdmin)
+# sitio_admin.register(User,UserAdmin)      #sirve este o ya no?
 sitio_admin.register(Group, GroupAdmin)
 

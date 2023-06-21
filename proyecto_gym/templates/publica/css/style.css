@@ -296,3 +296,15 @@
     }
   }
   
+  {% comment %} .btn-warning1 {
+    background-color: yellow;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-warning1:hover {
+    background-color: yellow;
+    color: black;
+  } {% endcomment %}
