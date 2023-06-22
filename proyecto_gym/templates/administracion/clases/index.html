@@ -25,10 +25,28 @@
                               id="nombre" 
                               name="nombre"
                               placeholder="Ingrese el nombre" 
-                              class="form-control">
+                              class="form-control"
+                              value="{{nombre}}">
                     </div>
                 </div>
+                                <!-- Resto del código del template -->
+
                 <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Categoria</label>
+                        
+                        <select name="categoria" id="categoria" class="form-control">
+                            <option value="">Seleccione</option>
+                            {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" == categoria_actual|stringformat:"s" %}selected{% endif %}>{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Resto del código del template -->
+
+                {% comment %} <div class="col-3">
                     <div class="md-form mb-0">
                         <label for="name" class="">Categoria</label>
                         
@@ -36,9 +54,12 @@
                             <option value="">Seleccione</option>
                         </select>
                     </div>
-                </div>
+                </div> {% endcomment %}
                 <div class="col-3 ">
                     <button class="btn btn-primary mt-4">Buscar</button>
+                    <a href="{% url 'limpiar_filtros' 'clases_index' %}" class="btn" style="background-color: gray; color: white; margin-top: 24px; transition: background-color 0.3s;">
+                        Quitar filtros
+                    </a>
                 </div>
             </div>
         </form>
@@ -87,22 +108,9 @@
         </table>
         <div class="row">
             <div class="col-12">
-                
-                {% comment %} <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="#"><<</a></li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">>></a></li>
-                    </ul>
-                  </nav> {% endcomment %}
             </div>
         </div>
     </div>
-    <!-- <div class="card-footer text-muted">
-        Footer
-    </div> -->
 </div>
 
 {% endblock %}

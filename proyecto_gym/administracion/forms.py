@@ -31,20 +31,20 @@ class ClaseForm(forms.ModelForm):
         )
     descripcion = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
-    )
+        )
     """Se utiliza ModelChoiceField para poder realizar un filtrado de lo que
     quiero mostrar en el selector"""
     categoria = forms.ModelChoiceField(                         #Diferencia con PUBLICA, donde uso  forms.ChoiceField
         queryset=Categoria.objects.filter(baja=False),          #ACA filtro por las opciones de cotegoría que existen y NO están de baja
         widget=forms.Select(attrs={'class': 'form-control'})
-    )
+        )
     portada = forms.ImageField(
         widget=forms.FileInput(attrs={'class':'form-control'})
-    )
+        )
 
     class Meta:
         model=Clase
-        fields=['nombre','fecha_inicio','portada','descripcion','categoria']  
+        fields=['nombre','fecha_inicio','portada','descripcion','categoria']
 
 class AlumnoForm(forms.ModelForm):
 
@@ -164,7 +164,7 @@ class InscripcionForm(forms.ModelForm):
     )
 
     estado = forms.ChoiceField(
-        label='estado',
+        label='Estado',
         choices=Inscripcion.ESTADOS,
         initial=1,
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -187,8 +187,15 @@ class SucursalForm(forms.ModelForm):
         )
     portada = forms.ImageField(
         widget=forms.FileInput(attrs={'class':'form-control'})
-    )
+        )
+    link = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Pegue el link de ubicación'})
+        )
+    iframe = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Pegue script iframe'})
+        )
+
     class Meta:
         model=Sucursal
-        fields=['nombre','direccion','portada']
+        fields=['nombre','direccion','portada','link','iframe']
 

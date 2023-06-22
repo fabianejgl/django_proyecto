@@ -20,7 +20,8 @@ class CacAdminSite(admin.AdminSite):
 # Personalizacion de visualizacion de modelos en el Admin de Django
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ( 'nombre',)
-    exclude = ('baja',)         #excluye "baja" del formulario para crear/editar una categoria
+    search_fields = ('nombre',)
+    #exclude = ('baja',)         #excluye "baja" del formulario para crear/editar una categoria
 
     #modificacion del listado que se quiere mostrar
     def get_queryset(self, request):
@@ -30,26 +31,32 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 
 class ClaseAdmin(admin.ModelAdmin):
-    list_display = ( 'nombre', 'categoria')
+    list_display = ( 'nombre', 'categoria','baja')
+    list_editable = ('baja',)
+    list_filter = ('categoria',)
+    search_fields = ('nombre',)
+
 
     #modificar listados de foreingkey
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "categoria":
             #Esto es para que aparezcan solo las CATEGORÍAS que estén ACTIVAS (baja=False)
+            #Pero en nuestro caso no daremos de baja Categorías ya que en el peor de los casos simplemente
+            #no habría clases de esa categoría
             kwargs["queryset"] = Categoria.objects.filter(baja=False)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
     
 class AlumnoAdmin(admin.ModelAdmin):
     list_display = ( 'matricula', 'dni','nombre', 'apellido', 'baja')
     list_editable = ('nombre','apellido','baja')
-    list_filter = ('dni','apellido')
     search_fields = ('nombre','apellido', 'dni')
+    ordering = ['nombre']
 
 class ProfesorAdmin(admin.ModelAdmin):
-    list_display = ( 'legajo', 'dni','nombre', 'apellido',)
-    list_editable = ('nombre','apellido')
-    list_filter = ('dni','apellido')
+    list_display = ( 'legajo', 'dni','nombre', 'apellido', 'baja')
+    list_editable = ('nombre','apellido', 'baja')
     search_fields = ('nombre','apellido', 'dni')
+    ordering = ['nombre']
 
 
 #OTRA OPCION PARA INSCRIPCION, decidir cuál quedaría mejor.
@@ -62,8 +69,8 @@ class ProfesorAdmin(admin.ModelAdmin):
 #     ]
 
 class GrupoAdmin(admin.ModelAdmin):
-    list_display = ( 'nombre', 'dia','horario', 'clase', 'profesor', 'sucursal',)
-    list_editable = ('dia','horario','sucursal',)
+    list_display = ( 'nombre', 'dia','horario', 'clase', 'profesor', 'sucursal','baja')
+    list_editable = ('dia','horario','sucursal','baja')
     list_filter = ('dia','clase','profesor','sucursal',)
     search_fields = ('nombre','horario',)
 
@@ -72,10 +79,11 @@ class InscripcionAdmin(admin.ModelAdmin):
     list_editable = ('grupo','estado')
     list_filter = ('grupo','estado',)
     search_fields = ('alumno','grupo_creacion',)
+    ordering = ['alumno__nombre']
 
 class SucursalAdmin(admin.ModelAdmin):
-    list_display = ( 'nombre', 'direccion','portada',)
-    list_editable = ('direccion',)
+    list_display = ( 'nombre', 'direccion','portada','baja')
+    list_editable = ('direccion','baja')
     # list_filter = ('grupo','estado',)
     search_fields = ('nombre',)
 

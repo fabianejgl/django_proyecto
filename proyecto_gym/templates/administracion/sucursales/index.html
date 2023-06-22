@@ -21,25 +21,19 @@
                 <div class="col-3">
                     <div class="md-form mb-0">
                         <label for="name" class="">Nombre</label>
-                        
                         <input type="text" 
                               id="nombre" 
                               name="nombre"
                               placeholder="Ingrese el nombre" 
-                              class="form-control">
+                              class="form-control"
+                              value="{{nombre}}">
                     </div>
                 </div>
-                {% comment %} <div class="col-3">               PROBARRRRRRRRRRR
-                    <div class="md-form mb-0">
-                        <label for="name" class="">Categoria</label>
-                        
-                        <select name="categoria" id="categoria" class="form-control">
-                            <option value="">Seleccione</option>
-                        </select>
-                    </div>
-                </div> {% endcomment %}
-                <div class="col-3 ">
+                <div class="col-3">
                     <button class="btn btn-primary mt-4">Buscar</button>
+                    <a href="{% url 'limpiar_filtros' 'sucursales_index' %}" class="btn" style="background-color: gray; color: white; margin-top: 24px; transition: background-color 0.3s;">
+                        Quitar filtros
+                    </a>
                 </div>
             </div>
         </form>

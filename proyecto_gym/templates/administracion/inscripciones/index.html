@@ -25,11 +25,26 @@
                               id="nombre" 
                               name="nombre"
                               placeholder="Ingrese el nombre" 
-                              class="form-control">
+                              class="form-control"
+                              value="{{nombre}}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Grupo</label>                        
+                        <select name="grupo" id="grupo" class="form-control">
+                            <option value="">Seleccione</option>
+                            {% for grupo in grupos %}
+                            <option value="{{ grupo.id }}" {% if grupo.id|stringformat:"s" == grupo_actual|stringformat:"s" %}selected{% endif %}>{{ grupo.nombre }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="col-3">
                     <button class="btn btn-primary mt-4">Buscar</button>
+                    <a href="{% url 'limpiar_filtros' 'inscripciones_index' %}" class="btn" style="background-color: gray; color: white; margin-top: 24px; transition: background-color 0.3s;">
+                        Quitar filtros
+                      </a>
                 </div>
             </div>
         </form>

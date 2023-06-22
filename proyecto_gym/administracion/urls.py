@@ -45,4 +45,6 @@ urlpatterns = [
     path('sucursales/nuevo/', views.sucursales_nuevo, name='sucursales_nuevo'),
     path('sucursales/editar/<int:id_sucursal>', views.sucursales_editar,name='sucursales_editar'),
     path('sucursales/eliminar/<int:id_sucursal>', views.sucursales_eliminar,name='sucursales_eliminar'),
+
+    path('limpiar_filtros/<str:nombre_vista>/', views.limpiar_filtros, name='limpiar_filtros'),
 ]

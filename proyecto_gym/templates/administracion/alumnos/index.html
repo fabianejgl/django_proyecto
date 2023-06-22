@@ -25,11 +25,39 @@
                               id="nombre" 
                               name="nombre"
                               placeholder="Ingrese el nombre" 
-                              class="form-control">
+                              class="form-control"
+                              value="{{nombre}}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Apellido</label>
+                        
+                        <input type="text" 
+                              id="apellido" 
+                              name="apellido"
+                              placeholder="Ingrese el apellido" 
+                              class="form-control"
+                              value="{{apellido}}">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">DNI</label>
+                        
+                        <input type="text" 
+                              id="dni" 
+                              name="dni"
+                              placeholder="Ingrese el dni" 
+                              class="form-control"
+                              value="{{dni}}">
                     </div>
                 </div>
                 <div class="col-3 ">
                     <button class="btn btn-primary mt-4">Buscar</button>
+                    <a href="{% url 'limpiar_filtros' 'alumnos_index' %}" class="btn" style="background-color: gray; color: white; margin-top: 24px; transition: background-color 0.3s;">
+                        Quitar filtros
+                    </a>
                 </div>
             </div>
         </form>
@@ -70,19 +98,6 @@
 
             </tbody>
         </table>
-        {% comment %} <div class="row">
-            <div class="col-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                      <li class="page-item"><a class="page-link" href="#"><<</a></li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item"><a class="page-link" href="#">3</a></li>
-                      <li class="page-item"><a class="page-link" href="#">>></a></li>
-                    </ul>
-                  </nav>
-            </div>
-        </div> {% endcomment %}
     </div>
     
 </div>

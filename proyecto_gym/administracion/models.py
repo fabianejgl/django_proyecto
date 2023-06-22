@@ -88,6 +88,9 @@ class Sucursal(models.Model):
     direccion = models.CharField(max_length=255,verbose_name='Direccion')
     portada = models.ImageField(upload_to='imagenes/',null=True,verbose_name='Portada')
     baja = models.BooleanField(default=0)
+    link = models.CharField(max_length=1000, verbose_name='Enlace de Maps')
+    iframe = models.CharField(max_length=1000, verbose_name='Script para iframe')
+
 
     def soft_delete(self):
         self.baja=True

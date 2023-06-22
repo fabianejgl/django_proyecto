@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 # Create your views here.
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Q
 
 #implemento decorador group_required para que los que pertenezcan a ese grupo puedan ingresar (además del superuser obvio)
     #Esta implementación dejaba afuera al superusuario, solo dejaba entrar a los del grupo específico
@@ -45,9 +46,13 @@ def password_admin(request):
 @login_required
 @group_required('admins_front')
 def categorias_index(request):
-    #queryset
-    categorias = Categoria.objects.filter(baja=False).order_by('id')
-    return render(request,'administracion/categorias/index.html',{'categorias':categorias})
+    nombre = request.GET.get('nombre')
+    if nombre:
+        categorias = Categoria.objects.filter(nombre__istartswith=nombre)
+    else:
+        categorias = Categoria.objects.filter(baja=False).order_by('id')
+        nombre=""
+    return render(request,'administracion/categorias/index.html',{'categorias':categorias, 'nombre':nombre})
 
 @login_required
 @group_required('admins_front')
@@ -104,9 +109,23 @@ def categorias_eliminar(request,id_categoria):
 @login_required
 @group_required('admins_front')
 def clases_index(request):
-    #queryset
-    clases = Clase.objects.all().order_by('id')
-    return render(request,'administracion/clases/index.html',{'clases':clases})
+    nombre = request.GET.get('nombre')
+    categoria_id = request.GET.get('categoria')
+    
+    categorias = Categoria.objects.all()  # Obtener todas las categorías para mostrar en el filtro
+    clases = Clase.objects.filter(baja=False).order_by('id')
+    
+    if nombre:
+        clases = clases.filter(nombre__istartswith=nombre)
+    else:
+        nombre=""
+    
+    if categoria_id:
+        clases = clases.filter(categoria=categoria_id)
+    else:
+        categoria_id=""
+    
+    return render(request, 'administracion/clases/index.html', {'clases': clases, 'nombre': nombre, 'categorias': categorias, 'categoria_id': categoria_id, 'categoria_actual':categoria_id})
 
 @login_required
 @group_required('admins_front')
@@ -164,7 +183,7 @@ def clases_eliminar(request,id_clase):
     except Clase.DoesNotExist:
         return render(request,'administracion/404_admin.html')
     messages.success(request,'Se ha eliminado la clase correctamente') 
-    clase.delete()
+    clase.soft_delete()
     return redirect('clases_index')
 
 """
@@ -173,9 +192,28 @@ def clases_eliminar(request,id_clase):
 @login_required
 @group_required('admins_front')
 def alumnos_index(request):
-    #queryset
-    alumnos = Alumno.objects.filter(baja=False)
-    return render(request,'administracion/alumnos/index.html',{'alumnos':alumnos})
+    nombre = request.GET.get('nombre')
+    apellido = request.GET.get('apellido')
+    dni = request.GET.get('dni')
+
+    alumnos = Alumno.objects.filter(baja=False).order_by('id')
+
+    if nombre:
+        alumnos = alumnos.filter(nombre__istartswith=nombre)
+    else:
+        nombre=""
+
+    if apellido:
+        alumnos = alumnos.filter(apellido__istartswith=apellido)
+    else:
+        apellido=""
+
+    if dni:
+        alumnos = alumnos.filter(dni__istartswith=dni)
+    else:
+        dni=""
+
+    return render(request,'administracion/alumnos/index.html',{'alumnos':alumnos, 'nombre':nombre, 'apellido':apellido,'dni':dni})
 
 @login_required
 @group_required('admins_front')
@@ -234,9 +272,28 @@ def alumnos_eliminar(request,id_alumno):
 @login_required
 @group_required('admins_front')
 def profesores_index(request):
-    #queryset
-    profesores = Profesor.objects.all().order_by('id')
-    return render(request,'administracion/profesores/index.html',{'profesores':profesores})
+    nombre = request.GET.get('nombre')
+    apellido = request.GET.get('apellido')
+    dni = request.GET.get('dni')
+
+    profesores = Profesor.objects.filter(baja=False).order_by('id')
+
+    if nombre:
+        profesores = profesores.filter(nombre__istartswith=nombre)
+    else:
+        nombre=""
+
+    if apellido:
+        profesores = profesores.filter(apellido__istartswith=apellido)
+    else:
+        apellido=""
+
+    if dni:
+        profesores = profesores.filter(dni__istartswith=dni)
+    else:
+        dni=""
+
+    return render(request,'administracion/profesores/index.html',{'profesores':profesores, 'nombre':nombre, 'apellido':apellido,'dni':dni})
 
 @login_required
 @group_required('admins_front')
@@ -285,7 +342,7 @@ def profesores_eliminar(request,id_profesor):
         profesor = Profesor.objects.get(pk=id_profesor)
     except Profesor.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    profesor.delete()
+    profesor.soft_delete()
     return redirect('profesores_index')
 
 """
@@ -294,9 +351,26 @@ def profesores_eliminar(request,id_profesor):
 @login_required
 @group_required('admins_front')
 def grupos_index(request):
-    #queryset
-    grupos = Grupo.objects.all().order_by('id')
-    return render(request,'administracion/grupos/index.html',{'grupos':grupos})
+
+    # grupos = Grupo.objects.filter(clase__baja=False, sucursal__baja=False).order_by('id')
+    # return render(request,'administracion/grupos/index.html',{'grupos':grupos})
+    nombre = request.GET.get('nombre')
+    clase_id = request.GET.get('clase')
+    
+    clases = Clase.objects.all()  # Obtener todas las categorías para mostrar en el filtro
+    grupos = Grupo.objects.filter(baja=False, sucursal__baja=False).order_by('id')
+    
+    if nombre:
+        grupos = grupos.filter(nombre__istartswith=nombre)
+    else:
+        nombre=""
+    
+    if clase_id:
+        grupos = grupos.filter(clase=clase_id)
+    else:
+        clase_id=""
+    
+    return render(request, 'administracion/grupos/index.html', {'grupos': grupos, 'nombre': nombre, 'clases': clases, 'clase_id': clase_id, 'clase_actual':clase_id})
 
 @login_required
 @group_required('admins_front')
@@ -344,15 +418,33 @@ def grupos_eliminar(request, id_grupo):
         grupo = Grupo.objects.get(pk=id_grupo)
     except Grupo.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    grupo.delete()
+    grupo.soft_delete()
     return redirect('grupos_index')
 
 """CRUD INSCRIPCIONES"""
 @login_required
 @group_required('admins_front')
 def inscripciones_index(request):
-    inscripciones = Inscripcion.objects.filter(alumno__baja=False).order_by('alumno__nombre')    #Ordena alfabeticamente alumnos con BAJA = FALSE
-    return render(request,'administracion/inscripciones/index.html',{'inscripciones':inscripciones})
+    inscripciones = Inscripcion.objects.filter(alumno__baja=False, grupo__baja=False, grupo__sucursal__baja=False).order_by('alumno__nombre')
+    # inscripciones = Inscripcion.objects.filter(alumno__baja=False or grupo__baja=False).order_by('alumno__nombre')    #Ordena alfabeticamente alumnos con BAJA = FALSE
+    alumno_nombre = request.GET.get('nombre')
+    grupo_id = request.GET.get('grupo')
+    
+    grupos = Grupo.objects.all()  # Obtener todas las categorías para mostrar en el filtro
+    # inscripciones = Inscripcion.objects.filter(alumno__baja=False, grupo__baja=False, grupo__sucursal__baja=False).order_by('alumno__nombre')
+    inscripciones = Inscripcion.objects.filter(alumno__baja=False, grupo__baja=False, grupo__sucursal__baja=False).order_by('id')
+    
+    if alumno_nombre:
+        inscripciones = inscripciones.filter(alumno__nombre__istartswith=alumno_nombre)
+    else:
+        alumno_nombre=""
+    
+    if grupo_id:
+        inscripciones = inscripciones.filter(grupo__id=grupo_id)
+    else:
+        grupo_id=""
+    
+    return render(request,'administracion/inscripciones/index.html',{'inscripciones':inscripciones,'nombre': alumno_nombre, 'grupos': grupos, 'grupo_id': grupo_id, 'grupo_actual':grupo_id})
 
 @login_required
 @group_required('admins_front')
@@ -408,8 +500,14 @@ def inscripciones_eliminar(request, id_inscripcion):
 @login_required
 @group_required('admins_front')
 def sucursales_index(request):
+    nombre = request.GET.get('nombre')
     sucursales = Sucursal.objects.all().order_by('id')
-    return render(request,'administracion/sucursales/index.html',{'sucursales':sucursales})
+
+    if nombre:
+        sucursales = sucursales.filter(nombre__istartswith=nombre)
+    else:
+        nombre=""
+    return render(request,'administracion/sucursales/index.html',{'sucursales':sucursales, 'nombre':nombre})
 
 @login_required
 @group_required('admins_front')
@@ -442,11 +540,11 @@ def sucursales_editar(request, id_sucursal):
         if formulario.is_valid():
             nombre_edit = formulario.cleaned_data['nombre']
             direc_edit = formulario.cleaned_data['direccion']
-            if Sucursal.objects.filter(nombre=nombre_edit).exists() or Sucursal.objects.filter(direccion=direc_edit).exists():
+            if Sucursal.objects.filter(nombre=nombre_edit).exclude(id = id_sucursal).exists() or Sucursal.objects.filter(direccion=direc_edit).exclude(id = id_sucursal).exists():
                 messages.error(request, 'Este nombre y/o direccion ya pertenece a una sucursal')
             else:
                 formulario.save()
-                return redirect('sucursal_index')
+                return redirect('sucursales_index')
     else:
         formulario = SucursalForm(instance=sucursal)
     return render(request,'administracion/sucursales/editar.html',{'form':formulario})
@@ -458,5 +556,9 @@ def sucursales_eliminar(request, id_sucursal):
         sucursal = Sucursal.objects.get(pk=id_sucursal)
     except Sucursal.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    sucursal.delete()
+    sucursal.soft_delete()
     return redirect('sucursales_index')
+
+def limpiar_filtros(request, nombre_vista):
+    # Redirige a la vista especificada sin los parámetros de filtro en la URL
+    return redirect(nombre_vista)

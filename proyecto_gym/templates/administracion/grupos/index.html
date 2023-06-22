@@ -25,20 +25,29 @@
                               id="nombre" 
                               name="nombre"
                               placeholder="Ingrese el nombre" 
-                              class="form-control">
+                              class="form-control"
+                              value="{{nombre}}">
                     </div>
                 </div>
+                                <!-- Resto del código del template -->
+
                 <div class="col-3">
                     <div class="md-form mb-0">
-                        <label for="name" class="">Grupo</label>
+                        <label for="name" class="">Clase</label>
                         
-                        <select name="categoria" id="categoria" class="form-control">
+                        <select name="clase" id="clase" class="form-control">
                             <option value="">Seleccione</option>
+                            {% for clase in clases %}
+                            <option value="{{ clase.id }}" {% if clase.id|stringformat:"s" == clase_actual|stringformat:"s" %}selected{% endif %}>{{ clase.nombre }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="col-3 ">
                     <button class="btn btn-primary mt-4">Buscar</button>
+                    <a href="{% url 'limpiar_filtros' 'grupos_index' %}" class="btn" style="background-color: gray; color: white; margin-top: 24px; transition: background-color 0.3s;">
+                        Quitar filtros
+                    </a>
                 </div>
             </div>
         </form>
