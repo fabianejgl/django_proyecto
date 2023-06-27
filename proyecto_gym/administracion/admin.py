@@ -35,6 +35,7 @@ class ClaseAdmin(admin.ModelAdmin):
     list_editable = ('baja',)
     list_filter = ('categoria',)
     search_fields = ('nombre',)
+    ordering = ['nombre']
 
 
     #modificar listados de foreingkey

@@ -1,0 +1,23 @@
+{% extends '../publica/base2.html' %}
+
+{% block titulo %}
+    Cambiar Contraseña
+{% endblock titulo %}
+
+{% block contenido %}
+<section class="mb-4 container">
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Cambiar Contraseña</h2>               
+    <div class="change-password">
+        <div class="col-md-6 mb-md-0 mb-6">
+            <div class="alert alert-info" role="alert">
+                Ingresa tu nueva contraseña para cambiarla.
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-warning btn-lg">Guardar Contraseña</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

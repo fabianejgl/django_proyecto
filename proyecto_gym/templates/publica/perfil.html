@@ -1,8 +1,20 @@
 {% extends '../publica/base2.html' %}
+{% load static %}
 
 {% block titulo %}Perfil{% endblock titulo %}
 
 {% block contenido %}
+
+<div class='row mt-2'>
+  <div class='col-12'>
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert">
+              {{message}}
+          </div>
+      {% endfor %}
+  </div>
+</div>
+
 
 <div class="container perfil">
     
@@ -20,6 +32,10 @@
     <p>Email: {{ user.email }}</p>
     {% comment %} <p>DNI: {{ persona.dni }}</p> {% endcomment %}
     {% comment %} <p>Telefono: {{ user.telefono }}</p> {% endcomment %}
+  </div>
+  <div>
+    <h4>Cambiar contraseña</h4>
+    <p>Si deseas cambiar tu contraseña, haga click aquí: <a href="{% url 'password_cambio' %}">Cambiar contraseña</a></p>
   </div>
   
   <div>

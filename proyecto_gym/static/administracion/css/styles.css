@@ -11364,3 +11364,7 @@ body {
   overflow: hidden; */
 }
 
+/* Formulario Contacto*/
+.contacto-form{
+  padding:0 3rem 1rem 3rem;
+}

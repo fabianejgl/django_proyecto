@@ -113,7 +113,7 @@ class Sucursal(models.Model):
 
 class Grupo(models.Model):
     DIAS = [
-        (0,'¡SELECCIONE EL DÍA!'),
+        ('','-Seleccione día-'),
         (1,'Lunes'),
         (2,'Martes'),
         (3,'Miércoles'),
