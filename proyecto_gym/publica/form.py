@@ -20,6 +20,7 @@ def validate_email(value):
         raise ValidationError('Correo electrónico inválido')
     return value
 
+#Este quedó de clase
 class FormularioGym(UserCreationForm):
     telefono = forms.CharField(label='Telefono',
                                 max_length=50,

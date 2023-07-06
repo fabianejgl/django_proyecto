@@ -1,0 +1,49 @@
+ANOTACIONES DJANGO PROYECTO
+A MODIFICAR/COMPLETAR POR APPS:
+	proyecto_23319:
+		-settings.py 	(Falta agregar las ultimas lineas de GMAIL, clases 25 y 26 creo)
+		-urls.py	(ver qué pasará con index)
+
+-----ANOTACIONES-----: 
+	-Clase22-min1:20 explica cómo se guardan los estudiantes.
+	-¿¿¿¿¿¿¿DONDE SE USA LO DE PERFIL Y USUARIO??????? CON AUTH?
+	-Modelo PROXY en teoría. Colgado.
+	-CLASE23-Hacer view categorias_search para mostrar algunos segun sufijo de nombre.	ESTOOOOOOOOO
+	
+	-COMPARACION:
+		-Los Formularios de PUBLICA están basados en el FORM CLASS DE DJANGO que no aputnan a ningún Modelo en particular, especificamos TIPOS, y usamos WIDGET para manipular su representación en html.	*HEREDA DE Form*
+		-Para hacer CRUD en ADMIN app. *HEREDA DE ModelForm*.
+
+
+-----ADMIN Y migraciones-----:
+	-CREAR USER:  python manage.py createsuperuser
+	-Revertir migr: python manage.py migrate administracion 0002 por ej
+		-Clase 21-> minuto 1:19 usa sheell python.
+		
+PENDIENTES:
+
+--------A "admin" solo puede acceder el SUPERUSER ADMINISTRADOR, es decir el Administrador (con un perfil de desarrollador), ya que "Administracion" sería para el cliente, que es más personalizada para parecerse al sitio web.
+
+	-Hacer todos los eliminar LÓGICOS? O cuáles?			->	SI
+	-Agregar baja:
+		-alumnos, profesores, grupo, sucursal.
+		-inscripcion, "baja" como asistiendo
+	
+	-Ver si se cumplen en "admin" las restricciones hechas en "administracion"
+	-#OTRA OPCION PARA INSCRIPCION Y GRUPO, decidir cuál quedaría mejor en "admin"
+
+	AUTENTICACION:
+		-toca cosas de publica: templates views urls y algo de setting.py
+		
+Hay 2 formas de hacer login:
+	-de una fomra manual
+	-o utilizando rutas y vistas basadas en clases que proveee django
+
+
+Cambios que hacer:
+	-Password recuperar
+	-Hacer formulario de contacto por grupos/clases en especifico.
+		-Que pueda seleccionar sucursal obligatoriamente, y días opcional:
+			-Si hay un día en especifico, se le envían todas las clases
+			-Sino, se le manda las clases de la categoría que eligió con sus respectivos
+				días horarios y profesor.
